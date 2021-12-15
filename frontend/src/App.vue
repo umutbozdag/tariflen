@@ -1,6 +1,6 @@
 <template>
 <nav class="navbar bg-light fixed-top justify-content-between">
-    <a class="navbar-brand ps-3" href="#">
+    <a class="navbar-brand ps-5" href="#">
       <img src="./assets/TariflenLogo.png" alt="Logo" height="45" />
     </a>
 
@@ -42,6 +42,7 @@
       </div>
     </li>
   </nav>
+  <hr class="featurette-divider" />
   <router-view/>
 </template>
 
@@ -52,5 +53,13 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+li {
+  list-style-type: none;
+}
+body {
+  margin-top: 5rem;
+  height: 10000px;
 }
 </style>
