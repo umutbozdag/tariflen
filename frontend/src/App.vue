@@ -1,6 +1,7 @@
 <template>
-<nav class="navbar bg-light fixed-top justify-content-between">
-    <a class="navbar-brand ps-5" href="#">
+  <!-- NAV -->
+  <nav class="navbar bg-light fixed-top justify-content-between">
+    <a class="navbar-brand ps-5" href="/">
       <img src="./assets/TariflenLogo.png" alt="Logo" height="45" />
     </a>
 
@@ -11,14 +12,29 @@
         placeholder="Tarif Ara.."
         aria-label="Arama"
       />
-      <button class="btn btn-outline-success rounded-pill" type="submit">
+      <button class="btn btn-outline-success rounded-circle" type="submit">
         <i class="bi bi-search"></i>
       </button>
     </form>
-
-    <button class="btn btn-sm btn-outline-success rounded-pill" type="button">
-      Giriş Yap
-    </button>
+    <div class="btn-group">
+      <button
+        class="btn btn-sm btn-outline-info text-dark rounded-pill me-2"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#modalSignup"
+      >
+        Üye Ol
+      </button>
+      <button
+        class="btn btn btn-outline-success fw-bold rounded-pill"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#modalSignin"
+      >
+        <i class="bi bi-box-arrow-in-right"></i>
+        Giriş Yap
+      </button>
+    </div>
 
     <li class="nav-item dropdown pe-5">
       <a
@@ -42,13 +58,115 @@
       </div>
     </li>
   </nav>
+
   <hr class="featurette-divider" />
-  <router-view/>
+
+  <!-- SIGNUP MODAL -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="modalSignup">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor <i class="bi bi-emoji-smile"></i>
+</h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body p-5 pt-0">
+          <form class="">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control rounded-pill"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">E-Posta</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control rounded-pill"
+                id="floatingPassword"
+                placeholder="Password"
+              />
+              <label for="floatingPassword">Şifre</label>
+            </div>
+            <button
+              class="w-100 mb-2 btn btn-lg rounded-pill btn-primary"
+              type="submit"
+            >
+              Üye Ol
+              <i class="bi bi-plus-square"></i>
+            </button>
+            <hr class="my-4" />
+            <small class="text-muted"
+              >Üye ol butonuna basarak "Kullanıcı Sözleşmesi"ni kabul etmiş sayılırsınız.</small
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNIN MODAL -->
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h2 class="fw-bold mb-0">Giriş Yap <i class="bi bi-emoji-smile"></i>
+</h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body p-5 pt-0">
+          <form class="">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control rounded-pill"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">E-Posta</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control rounded-pill"
+                id="floatingPassword"
+                placeholder="Password"
+              />
+              <label for="floatingPassword">Şifre</label>
+            </div>
+            <button
+              class="w-100 mb-2 btn btn-lg rounded-pill btn-primary"
+              type="submit"
+            >
+              Giriş Yap
+              <i class="bi bi-door-open"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-view />
 </template>
 
 <style lang="scss">
 #app {
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
