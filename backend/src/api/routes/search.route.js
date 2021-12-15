@@ -1,6 +1,6 @@
-import express from 'express'
+const express = require('express')
 const router = express.Router()
-import getSearchResults from '../../parser/index.js'
+const getSearchResults = require('../../parser/index.js')
 
 // define the home page route
 router.get('/', async function (req, res) {
@@ -17,4 +17,4 @@ router.get('/', async function (req, res) {
 
 })
 
-export default router
+module.exports = router

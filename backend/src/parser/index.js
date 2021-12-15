@@ -1,8 +1,7 @@
-import axios from "axios";
-import cheerio from "cheerio";
-import pretty from 'pretty'
+const axios = require("axios");
+const cheerio = require("cheerio");
 
-export default async function getSearchResults(marketType, query) {
+async function getSearchResults(marketType, query) {
 	let itemsArr = [];
 	if (marketType === 'Carrefour') {
 		const { data } = await axios
@@ -47,3 +46,5 @@ function getMarketLinkByType(marketType) {
 			break;
 	}
 }
+
+module.exports = getSearchResults
