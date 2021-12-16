@@ -66,8 +66,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content rounded-5 shadow">
         <div class="modal-header p-5 pb-4 border-bottom-0">
-          <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor <i class="bi bi-emoji-smile"></i>
-</h2>
+          <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor</h2>
           <button
             type="button"
             class="btn-close"
@@ -100,8 +99,8 @@
               class="w-100 mb-2 btn btn-lg rounded-pill btn-primary"
               type="submit"
             >
+              <i class="bi bi-plus-circle"></i>
               Üye Ol
-              <i class="bi bi-plus-square"></i>
             </button>
             <hr class="my-4" />
             <small class="text-muted"
@@ -119,8 +118,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content rounded-5 shadow">
         <div class="modal-header p-5 pb-4 border-bottom-0">
-          <h2 class="fw-bold mb-0">Giriş Yap <i class="bi bi-emoji-smile"></i>
-</h2>
+          <h2 class="fw-bold mb-0">Giriş Yap</h2>
           <button
             type="button"
             class="btn-close"
@@ -153,8 +151,8 @@
               class="w-100 mb-2 btn btn-lg rounded-pill btn-primary"
               type="submit"
             >
-              Giriş Yap
               <i class="bi bi-door-open"></i>
+              Giriş Yap
             </button>
           </form>
         </div>
