@@ -36,7 +36,7 @@
       </button>
     </div>
 
-    <li class="nav-item dropdown pe-5">
+    <li class="nav-item profile_logo dropdown pe-5">
       <a
         class="nav-link dropdown-toggle text-success"
         href="#"
@@ -50,7 +50,7 @@
       </a>
 
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Profilim</a>
+        <a class="dropdown-item" href="/profil">Profilim</a>
         <a class="dropdown-item" href="#">Tariflerim</a>
         <a class="dropdown-item" href="#">Favorilerim</a>
         <div class="dropdown-divider"></div>
@@ -171,11 +171,10 @@
   color: #2c3e50;
 }
 
-li {
+.profile_logo {
   list-style-type: none;
 }
 body {
   margin-top: 5rem;
-  height: 10000px;
 }
 </style>

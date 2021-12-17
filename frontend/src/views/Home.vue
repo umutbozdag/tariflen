@@ -49,7 +49,7 @@
   <hr class="featurette-divider" />
 
   <div class="row featurette justify-content-center">
-    <div class="col-md-4 mt-3">
+    <div class="col-md-3 mt-3">
       <h2 class="featurette-heading display-3">Günün Menüsü</h2>
       <h2 class="featurette-heading display-5 text-muted">Kurufasulye Pilav</h2>
     </div>
@@ -60,7 +60,7 @@
         </h1></a
       >
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <svg
         class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
         width="200"
@@ -112,7 +112,7 @@
               </div>
             </div>
             <div class="container">
-             <a
+              <a
                 href="#"
                 class="d-flex link-dark text-decoration-none pt-2"
                 aria-expanded="false"
@@ -132,7 +132,7 @@
         </div>
       </div>
 
-       <div class="col">
+      <div class="col">
         <div class="card shadow-sm">
           <svg
             class="bd-placeholder-img card-img-top"
@@ -162,7 +162,7 @@
               </div>
             </div>
             <div class="container">
-             <a
+              <a
                 href="#"
                 class="d-flex link-dark text-decoration-none pt-2"
                 aria-expanded="false"
@@ -182,7 +182,7 @@
         </div>
       </div>
 
-       <div class="col">
+      <div class="col">
         <div class="card shadow-sm">
           <svg
             class="bd-placeholder-img card-img-top"
@@ -212,7 +212,7 @@
               </div>
             </div>
             <div class="container">
-             <a
+              <a
                 href="#"
                 class="d-flex link-dark text-decoration-none pt-2"
                 aria-expanded="false"
@@ -232,7 +232,7 @@
         </div>
       </div>
 
-       <div class="col">
+      <div class="col">
         <div class="card shadow-sm">
           <svg
             class="bd-placeholder-img card-img-top"
@@ -262,7 +262,7 @@
               </div>
             </div>
             <div class="container">
-             <a
+              <a
                 href="#"
                 class="d-flex link-dark text-decoration-none pt-2"
                 aria-expanded="false"
@@ -281,9 +281,6 @@
           </div>
         </div>
       </div>
-
-      
-
     </div>
   </div>
 </template>
