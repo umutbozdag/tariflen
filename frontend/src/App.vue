@@ -4,7 +4,7 @@
     <a class="navbar-brand ps-5" href="/">
       <img src="./assets/TariflenLogo.png" alt="Logo" height="45" />
     </a>
-
+    <!-- SEARCH BAR -->
     <form class="d-flex">
       <input
         class="form-control rounded-pill"
@@ -16,6 +16,8 @@
         <i class="bi bi-search"></i>
       </button>
     </form>
+
+    <!-- UYEOL GIRISYAP -->
     <div class="btn-group">
       <button
         class="btn btn-sm btn-outline-info text-dark rounded-pill me-2"
@@ -36,6 +38,18 @@
       </button>
     </div>
 
+    <!-- TARIF EKLE -->
+
+    <div class="addRecipe">
+      <a
+        href="#"
+        class="btn btn-lg btn-outline-danger fw-bold rounded-pill"
+        role="button"
+      >
+        Tarif Ekle <i class="bi bi-bag-plus"></i
+      ></a>
+    </div>
+    <!-- PROFIL -->
     <li class="nav-item profile_logo dropdown pe-5">
       <a
         class="nav-link dropdown-toggle text-success"
@@ -104,7 +118,8 @@
             </button>
             <hr class="my-4" />
             <small class="text-muted"
-              >Üye ol butonuna basarak "Kullanıcı Sözleşmesi"ni kabul etmiş sayılırsınız.</small
+              >Üye ol butonuna basarak "Kullanıcı Sözleşmesi"ni kabul etmiş
+              sayılırsınız.</small
             >
           </form>
         </div>
@@ -164,6 +179,7 @@
 
 <style lang="scss">
 #app {
+  overflow-x: hidden;
   font-family: "Dosis", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -175,6 +191,6 @@
   list-style-type: none;
 }
 body {
-  margin-top: 5rem;
+  padding-top: 4rem;
 }
 </style>
