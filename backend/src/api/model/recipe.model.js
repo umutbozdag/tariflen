@@ -1,21 +1,44 @@
 const mongoose = require("mongoose");
 const { nanoid } = require("nanoid");
 
-const RecipeSchema = new mongoose.Schema(
-  {
+// https://stackoverflow.com/a/39869551
+
+const RecipeSchema = new mongoose.Schema({
     recipeId: {
-      type: String,
-      required: true,
-      unique: true,
-      default: () => nanoid(10),
+        type: String,
+        required: true,
+        unique: true,
+        default: () => nanoid(24),
     },
     title: { type: String, required: true, default: '' },
     description: { type: String, default: '' },
     ingredients: { type: Array, default: [] },
-    author: { type: String, required: true, default: '' }
-  },
-  { timestamps: true }
+    categoryId: { type: String, required: true },
+    authorId: { type: String, required: true },
+    image: {
+        data: Buffer,
+        contentType: String
+    },
+    comments: [{
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        content: { type: String, required: true },
+        rate: { type: Number },
+    }]
+},
+    { timestamps: true }
 );
+
+RecipeSchema.virtual('author', {
+    ref: 'User',
+    localField: 'authorId',
+    foreignField: 'userId'
+})
+
+// TODO
+// RecipeSchema.virtual('comments', [{
+
+// }])
+
 
 const Recipe = mongoose.model("Recipe", RecipeSchema);
 

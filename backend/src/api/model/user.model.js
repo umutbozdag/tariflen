@@ -12,7 +12,12 @@ const UserSchema = new mongoose.Schema(
     name: { type: String, required: true, },
     lastName: { type: String, required: true },
     username: { type: String, required: true },
-    
+    followers: { type: Array },
+    follows: { type: Array },
+    avatar: {
+      data: Buffer,
+      contentType: String
+    },
   },
   { timestamps: true }
 );
