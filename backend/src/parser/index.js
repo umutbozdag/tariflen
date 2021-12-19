@@ -1,6 +1,18 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+const classes = {
+	carrefour: {
+		list: '.product-listing',
+		listItem: '.product-listing-item',
+		outOfStock: '.outOfStock',
+		unitPrice: '.item-price-unit',
+		price: '.item-price',
+		name: '.item-name',
+		imageURL: 'a .thumb img'
+	}
+}
+
 async function getSearchResults(marketType, query) {
 	let itemsArr = [];
 	if (marketType === 'Carrefour') {
@@ -10,17 +22,18 @@ async function getSearchResults(marketType, query) {
 
 		const $ = cheerio.load(data, {
 			normalizeWhitespace: true,
-
 		});
 
-		$('.product-listing').find('.product-listing-item').each((idx, item) => {
-			if ($(item).find('.outOfStock').text()) {
-			 	return
+
+
+		$(classes.carrefour.list).find(classes.carrefour.listItem).each((idx, item) => {
+			if ($(item).find(classes.carrefour.outOfStock).text()) {
+				return
 			}
-			let unitPrice = $(item).find('.item-price-unit')
-			let price = $(item).find('.item-price')
-			let name = $(item).find('.item-name');
-			let imageURL = $(item).find('a .thumb img').attr('data-src');
+			let unitPrice = $(item).find(classes.carrefour.unitPrice)
+			let price = $(item).find(classes.carrefour.price)
+			let name = $(item).find(classes.carrefour.name);
+			let imageURL = $(item).find(classes.carrefour.imageURL).attr('data-src');
 
 
 			itemsArr.push({

@@ -5,9 +5,47 @@ const {
     deleteRecipe,
     findRecipes,
 } = require("../service/recipe.service");
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, '/src/uploads');
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.fieldname);
+    }
+});
+
+const upload = multer({
+    storage, limits: {
+        fileSize: 1000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(png|jpg)$/)) {
+            // upload only png and jpg format
+            return cb(new Error('Please upload a Image'))
+        }
+        cb(undefined, true)
+    }
+})
 
 async function createRecipeHandler(req, res) {
     const body = req.body;
+    let image;
+
+    if (req.file) {
+        upload.single('recipeImage');
+        const host = req.host;
+        const filePath = req.protocol + "://" + host + '/' + req.file.path;
+
+        image = req.file;
+        body = {
+            ...body,
+            image,
+            recipeImagePath: filePath
+        }
+        
+    }
 
     const recipe = await createRecipe({ ...body });
 
@@ -68,4 +106,5 @@ module.exports = {
     findAndUpdateRecipe,
     getRecipesHandler,
     deleteRecipeHandler,
+    getRecipeHandler
 }

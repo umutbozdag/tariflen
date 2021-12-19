@@ -12,10 +12,18 @@ const UserSchema = new mongoose.Schema(
     name: { type: String, required: true, },
     lastName: { type: String, required: true },
     username: { type: String, required: true },
-    
+    followers: { type: Array },
+    follows: { type: Array },
+    avatar: {
+      data: Buffer,
+      contentType: String
+    },
+    favorites: { type: Array },
+    recipes: { type: Array }
   },
   { timestamps: true }
 );
+
 
 const User = mongoose.model("User", UserSchema);
 
