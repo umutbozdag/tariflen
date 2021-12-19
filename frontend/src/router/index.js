@@ -21,10 +21,10 @@ const routes = [
     component: Profile
   },
   {
-    path: '/tarif-detayi',
+    path: '/tarif',
     name: 'RecipeDetail',
     component: RecipeDetail
-  },
+  }
 ]
 
 const router = createRouter({

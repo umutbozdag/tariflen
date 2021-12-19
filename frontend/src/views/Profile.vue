@@ -692,6 +692,6 @@ export default {};
 
 <style>
 .profileDetail {
-  border-left: 10px solid green;
+  border-left: 10px solid #00C2FF;
 }
 </style>
