@@ -18,9 +18,12 @@ const UserSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String
     },
+    favorites: { type: Array },
+    recipes: { type: Array }
   },
   { timestamps: true }
 );
+
 
 const User = mongoose.model("User", UserSchema);
 
