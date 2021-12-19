@@ -12,10 +12,12 @@
         <h1 class="display-1">Burak Yücel</h1>
         <div class="d-flex mx-auto">
           <p class="profileDetail display-6 mt-3 ps-2">
-            10 Tarif<i class="bi bi-egg"></i>
+            10 Tarif
+            <i class="bi bi-egg"></i>
           </p>
           <p class="profileDetail display-6 mt-3 ps-2 ms-3">
-            10 Takipçi<i class="bi bi-people"></i>
+            10 Takipçi
+            <i class="bi bi-people"></i>
           </p>
         </div>
       </div>
@@ -42,9 +44,7 @@
               role="tab"
               aria-controls="nav-tariflerim"
               aria-selected="true"
-            >
-              Tariflerim
-            </button>
+            >Tariflerim</button>
             <button
               class="nav-link"
               id="nav-favTariflerim-tab"
@@ -54,9 +54,7 @@
               role="tab"
               aria-controls="nav-favTariflerim"
               aria-selected="false"
-            >
-              Favori Tariflerim
-            </button>
+            >Favori Tariflerim</button>
             <button
               class="nav-link"
               id="nav-contact-tab"
@@ -66,9 +64,7 @@
               role="tab"
               aria-controls="nav-contact"
               aria-selected="false"
-            >
-              Takipçiler
-            </button>
+            >Takipçiler</button>
           </div>
         </nav>
 
@@ -83,245 +79,7 @@
           >
             <div class="container justify-content-center">
               <div class="row row-cols-1 row-cols-md-4 g-3">
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">HeyÇiBörek Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <recipe-card v-for="i in 5" :key="i" recipe-title="Tarif" />
               </div>
             </div>
           </div>
@@ -350,27 +108,18 @@
                     >
                       <title>Placeholder</title>
                       <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
+                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                     </svg>
 
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
+                      <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group">
                           <button
                             type="button"
                             class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
+                          >Tarifi Görüntüle</button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-heart"></i>
                           </button>
                         </div>
@@ -410,27 +159,18 @@
                     >
                       <title>Placeholder</title>
                       <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
+                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                     </svg>
 
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
+                      <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group">
                           <button
                             type="button"
                             class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
+                          >Tarifi Görüntüle</button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-heart"></i>
                           </button>
                         </div>
@@ -470,27 +210,18 @@
                     >
                       <title>Placeholder</title>
                       <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
+                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                     </svg>
 
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bolder">Mantı Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
+                      <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group">
                           <button
                             type="button"
                             class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
+                          >Tarifi Görüntüle</button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-heart"></i>
                           </button>
                         </div>
@@ -530,27 +261,18 @@
                     >
                       <title>Placeholder</title>
                       <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                        Thumbnail
-                      </text>
+                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                     </svg>
 
                     <div class="card-body">
                       <p class="card-text fs-3 fw-bolder">Sarma Tarifi</p>
-                      <div
-                        class="d-flex justify-content-center align-items-center"
-                      >
+                      <div class="d-flex justify-content-center align-items-center">
                         <div class="btn-group">
                           <button
                             type="button"
                             class="btn btn-sm btn-outline-success"
-                          >
-                            Tarifi Görüntüle
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-danger"
-                          >
+                          >Tarifi Görüntüle</button>
+                          <button type="button" class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-heart"></i>
                           </button>
                         </div>
@@ -687,7 +409,12 @@
 </template>
 
 <script>
-export default {};
+import RecipeCard from '../components/RecipeCard.vue';
+export default {
+  components: {
+    RecipeCard
+  }
+};
 </script>
 
 <style>
