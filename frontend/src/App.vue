@@ -7,7 +7,7 @@
 
 <script>
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import Navbar from './components/Navbar.vue';
 
 export default {
@@ -18,22 +18,23 @@ export default {
   methods: {
     ...mapMutations(['setUserHandler'])
   },
+  computed: {
+    ...mapState(['currentUser'])
+  },
   mounted() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        console.log(user);
-        this.setUserHandler(user);
-        // const uid = user.uid;
-        
-        // ...
+        if (!this.currentUser) {
+          this.$axios.get(`http://localhost:3000/user/${user.email}`).then(response => {
+            this.setUserHandler(response.data);
+          })
+        }
       } else {
         this.setUserHandler(null);
         console.log('no user')
-        // User is signed out
-        // ...
       }
     });
     console.log('mount')

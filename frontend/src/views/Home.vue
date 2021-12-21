@@ -1,49 +1,6 @@
 <template>
   <div class="d-flex justify-content-around">
-    <div class="card bg-info shadow">
-      <img src="../assets/zeytin.png" class="card-img" alt="zeytin" />
-      <div class="card-img-overlay">
-        <a href="#" class="text-decoration-none stretched-link">
-          <h2 class="card-title pt-5 mt-5 mb-4 fw-bold">Zeytinyağlı Menüler</h2>
-        </a>
-      </div>
-    </div>
-
-    <div class="card bg-info shadow">
-      <img src="../assets/sulu.png" class="card-img" alt="sulu" />
-      <div class="card-img-overlay">
-        <a href="#" class="text-decoration-none stretched-link">
-          <h1 class="card-title pt-5 mt-5 mb-4 fw-bold">Sulu Yemekler</h1>
-        </a>
-      </div>
-    </div>
-
-    <div class="card bg-info shadow">
-      <img src="../assets/hamur.png" class="card-img" alt="Hamur" />
-      <div class="card-img-overlay">
-        <a href="#" class="text-decoration-none stretched-link">
-          <h1 class="card-title pt-5 mt-5 mb-4 fw-bold">Hamur İşi</h1>
-        </a>
-      </div>
-    </div>
-
-    <div class="card bg-info shadow">
-      <img src="../assets/vegan.png" class="card-img" alt="vegan" />
-      <div class="card-img-overlay">
-        <a href="#" class="text-decoration-none stretched-link">
-          <h1 class="card-title pt-5 mt-5 mb-4 fw-bold">Vegan Menüler</h1>
-        </a>
-      </div>
-    </div>
-
-    <div class="card bg-info shadow">
-      <img src="../assets/tatli.png" class="card-img" alt="tatli" />
-      <div class="card-img-overlay">
-        <a href="#" class="text-decoration-none stretched-link">
-          <h1 class="card-title pt-5 mt-5 mb-4 fw-bold">Tatlılar</h1>
-        </a>
-      </div>
-    </div>
+    <category-card v-for="category in categories" :key="category.categoryId" :category="category" />
   </div>
 
 <!-- GUNUN MENUSU -->
@@ -75,41 +32,37 @@
   <hr class="featurette-divider" />
   <!-- TARIFLER -->
 
-  <div class="container justify-content-center">
+  <div class="container justify-content-center" v-if="recipes && recipes.length">
     <div class="row row-cols-1 row-cols-md-4 g-3">
-                <recipe-card
-                  v-for="i in 5"
-                  :key="i"
-                  recipe-title="Tarif Ad"
-                  profile-name="Burak"
-                  meal-for="2"
-                  meal-prep-time="30"
-                />
-              </div>
-            </div>
+      <recipe-card v-for="recipe in recipes" :key="recipe.recipeId" :recipe="recipe" />
+    </div>
+  </div>
 </template>
 
 <script>
-import RecipeCard from "../components/RecipeCard.vue"
+import { mapActions, mapState } from 'vuex';
+import CategoryCard from '../components/CategoryCard.vue';
+import RecipeCard from '../components/RecipeCard.vue';
+
 export default {
+  name: 'Home',
   components: {
+    CategoryCard,
     RecipeCard
+},
+  async mounted() {
+    await this.setCategories();
+    await this.setRecipes();
+    console.log('recipes', this.recipes)
+  },
+  methods: {
+    ...mapActions(['setCategories', 'setRecipes'])
+  },
+  computed: {
+    ...mapState(['categories', 'recipes'])
   }
 };
 </script>
 
 <style>
-.card-title {
-  color: white;
-  text-shadow: 2px 2px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 2px 1px 0 #000;
-}
-.card {
-  border-radius: 10px;
-  min-width: 180px;
-  max-width: 300px;
-}
-.card-img {
-  border-radius: 10px;
-  height: 200px;
-}
 </style>

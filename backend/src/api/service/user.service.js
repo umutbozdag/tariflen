@@ -1,18 +1,18 @@
 const User = require("../model/user.model");
 
 function createUser(input) {
-    return User.create(input);
+    return User.create(input).populate('recipes');
 }
 
 function findUser(
     query,
     options = { lean: true }
 ) {
-    return User.findOne(query, {}, options);
+    return User.findOne(query, {}, options).populate('recipes');
 }
 
 function findUsers() {
-    return User.find();
+    return User.find().populate('recipes');
 }
 
 function findAndUpdateUser(
@@ -20,7 +20,7 @@ function findAndUpdateUser(
     update,
     options
 ) {
-    return User.findOneAndUpdate(query, update, options);
+    return User.findOneAndUpdate(query, update, options).populate('recipes');
 }
 
 function deleteUser(query) {

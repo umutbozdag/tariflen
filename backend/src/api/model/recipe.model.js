@@ -23,9 +23,11 @@ const RecipeSchema = new mongoose.Schema({
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         content: { type: String, required: true },
         rate: { type: Number },
-    }]
+    }],
+    cookingTime: { type: String, required: true },
+    mealFor: { type: Number, required: true }
 },
-    { timestamps: true }
+    { timestamps: true, toJSON: { virtuals: true } }
 );
 
 RecipeSchema.virtual('author', {

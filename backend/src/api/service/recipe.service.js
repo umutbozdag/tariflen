@@ -1,18 +1,18 @@
 const Recipe = require("../model/recipe.model");
 
 function createRecipe(input) {
-    return Recipe.create(input);
+    return Recipe.create(input).populate('author');
 }
 
 function findRecipe(
     query,
     options = { lean: true }
 ) {
-    return Recipe.findOne(query, {}, options);
+    return Recipe.findOne(query, {}, options).populate('author');
 }
 
 function findRecipes() {
-    return Recipe.find();
+    return Recipe.find().populate('author');
 }
 
 function findAndUpdateRecipe(

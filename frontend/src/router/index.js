@@ -16,12 +16,12 @@ const routes = [
     component: AddRecipe
   },
   {
-    path: '/profil',
+    path: '/profil/:username',
     name: 'Profile',
     component: Profile
   },
   {
-    path: '/tarif',
+    path: '/tarif/:recipeId',
     name: 'RecipeDetail',
     component: RecipeDetail
   }

@@ -8,7 +8,7 @@ function findCategory(
     query,
     options = { lean: true }
 ) {
-    return Category.findOne(query, {}, options);
+    return Category.findOne(query, {}, options).populate('recipes');
 }
 
 function findCategories() {

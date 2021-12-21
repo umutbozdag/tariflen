@@ -53,16 +53,16 @@ async function createUserHandler(req, res) {
 }
 
 async function updateUsersHandler(req, res) {
-    const userId = req.params.userId
+    const email = req.params.email
     const update = req.body;
 
-    const user = await findUser({ userId });
+    const user = await findUser({ email });
 
     if (!user) {
         return res.sendStatus(404);
     }
 
-    const updatedUser = await findAndUpdateUser({ userId }, update, {
+    const updatedUser = await findAndUpdateUser({ email }, update, {
         new: true,
     });
 
@@ -70,8 +70,19 @@ async function updateUsersHandler(req, res) {
 }
 
 async function getUserHandler(req, res) {
-    const userId = req.params.userId;
-    const user = await findUser({ userId });
+    const email = req.params.email;
+    const user = await findUser({ email });
+
+    if (!user) {
+        return res.sendStatus(404);
+    }
+
+    return res.send(user);
+}
+
+async function getUserWithUsernameHandler(req, res) {
+    const username = req.params.username;
+    const user = await findUser({ username });
 
     if (!user) {
         return res.sendStatus(404);
@@ -87,15 +98,15 @@ async function getUsersHandler(req, res) {
 }
 
 async function deleteUserHandler(req, res) {
-    const userId = req.params.userId;
+    const email = req.params.email;
 
-    const user = await findUser({ userId });
+    const user = await findUser({ email });
 
     if (!user) {
         return res.sendStatus(404);
     }
 
-    await deleteUser({ userId });
+    await deleteUser({ email });
 
     return res.sendStatus(200);
 }
@@ -106,5 +117,6 @@ module.exports = {
     findAndUpdateUser,
     getUsersHandler,
     deleteUserHandler,
-    getUserHandler
+    getUserHandler,
+    getUserWithUsernameHandler
 }

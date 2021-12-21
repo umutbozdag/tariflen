@@ -19,7 +19,7 @@ const CategorySchema = new mongoose.Schema({
     image: {
       data: Buffer,
       contentType: String
-  },
+    },
   },
   { timestamps: true, toJSON: { virtuals: true} }
 );
