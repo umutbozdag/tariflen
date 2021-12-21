@@ -26,10 +26,9 @@
                 </small>
                 <div class="d-flex justify-content-center align-items-center"></div>
                 <div class="container position-relative" style="z-index: 2">
-                    <a
-                        href="#hey"
-                        class="d-flex link-dark text-decoration-none stretched-link"
-                        aria-expanded="false"
+                    <router-link
+                    class="d-flex link-dark text-decoration-none stretched-link"
+                        :to="{ name: 'Profile', params: { username: username ? username : recipe.author[0].username } }"
                     >
                         <img
                             src="https://github.com/mdo.png"
@@ -38,11 +37,10 @@
                             height="50"
                             class="rounded-circle"
                         />
-                        <p v-if="!username" class="fs-4 ps-3">{{ recipe.author[0].username }}</p>
-                        <p v-else class="fs-4 ps-3">{{ username }}</p>
-                    </a>
+                        <!-- <p v-if="!username" class="fs-4 ps-3">{{ recipe.author[0].username }}</p>
+                        <p v-else class="fs-4 ps-3">{{ username }}</p> -->
+                    </router-link>
                 </div>
-                <a href="#endis" class="stretched-link"></a>
             </div>
         </div>
     </div>

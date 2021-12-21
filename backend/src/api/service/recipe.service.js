@@ -1,7 +1,7 @@
 const Recipe = require("../model/recipe.model");
 
 function createRecipe(input) {
-    return Recipe.create(input).populate('author');
+    return Recipe.create(input);
 }
 
 function findRecipe(
