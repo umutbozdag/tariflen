@@ -16,33 +16,32 @@
         <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
       </svg>
 
-      <div class="card-body">
-        <h1 class="card-text fs-2 fw-bold">{{ recipe.title }}</h1>
-        <small class="text-muted">
-          {{ recipe.mealFor }} Kişilik
-          <i class="bi bi-people-fill"></i>
-          {{ recipe.cookingTime }}
-          <i class="bi bi-alarm"></i>
-        </small>
-        <div class="d-flex justify-content-center align-items-center"></div>
-        <div class="container position-relative" style="z-index: 2">
-          <a
-            href="#hey"
-            class="d-flex link-dark text-decoration-none stretched-link"
-            aria-expanded="false"
-          >
-            <img
-              src="https://github.com/mdo.png"
-              alt="mdo"
-              width="50"
-              height="50"
-              class="rounded-circle"
-            />
-            <!-- <p v-if="!username" class="fs-4 ps-3">
-              {{ recipe.author[0].username }}
-            </p>
-            <p v-else class="fs-4 ps-3">{{ username }}</p> -->
-          </a>
+            <div class="card-body">
+                <h1 class="card-text fs-2 fw-bold">{{ recipe.title }}</h1>
+                <small class="text-muted">
+                    {{ recipe.mealFor }} Kişilik
+                    <i class="bi bi-people-fill"></i>
+                    {{ recipe.cookingTime }}
+                    <i class="bi bi-alarm"></i>
+                </small>
+                <div class="d-flex justify-content-center align-items-center"></div>
+                <div class="container position-relative" style="z-index: 2">
+                    <router-link
+                    class="d-flex link-dark text-decoration-none stretched-link"
+                        :to="{ name: 'Profile', params: { username: username ? username : recipe.author[0].username } }"
+                    >
+                        <img
+                            src="https://github.com/mdo.png"
+                            alt="mdo"
+                            width="50"
+                            height="50"
+                            class="rounded-circle"
+                        />
+                        <!-- <p v-if="!username" class="fs-4 ps-3">{{ recipe.author[0].username }}</p>
+                        <p v-else class="fs-4 ps-3">{{ username }}</p> -->
+                    </router-link>
+                </div>
+            </div>
         </div>
         <a href="#endis" class="stretched-link"></a>
       </div>

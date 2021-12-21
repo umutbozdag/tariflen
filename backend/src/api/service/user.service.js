@@ -1,7 +1,7 @@
 const User = require("../model/user.model");
 
 function createUser(input) {
-    return User.create(input).populate('recipes');
+    return User.create(input);
 }
 
 function findUser(
@@ -20,7 +20,7 @@ function findAndUpdateUser(
     update,
     options
 ) {
-    return User.findOneAndUpdate(query, update, options).populate('recipes');
+    return User.findOneAndUpdate(query, update, options);
 }
 
 function deleteUser(query) {
