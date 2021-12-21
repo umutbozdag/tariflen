@@ -12,13 +12,13 @@
         placeholder="Tarif Ara.."
         aria-label="Arama"
       />
-      <button class="btn btn-outline-success rounded-circle" type="submit">
+      <button class="btn btn-outline-success rounded-circle ms-2" type="submit">
         <i class="bi bi-search"></i>
       </button>
     </form>
 
     <!-- UYEOL GIRISYAP -->
-    <div v-if="!currentUser" class="btn-group">
+    <div v-if="!currentUser" class="btn-group me-5">
       <button
         class="btn btn-sm btn-outline-info text-dark rounded-pill me-2"
         type="button"
