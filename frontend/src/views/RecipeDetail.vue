@@ -30,10 +30,10 @@
         de bol vitaminli, bir tas sıcak çorba yakışır.
       </p>
       <div class="d-flex">
-        <h3 class="profileDetail mt-1 ms-5 ps-2">
+        <h3 class="profileDetail mt-1 ps-2">
           4 Kişilik <i class="bi bi-people-fill"></i>
         </h3>
-        <h3 class="profileDetail mt-1 ms-5 ps-2">
+        <h3 class="profileDetail mt-1 ms-4 ps-2">
           40 Dakika
           <i class="bi bi-alarm"></i>
         </h3>
@@ -41,20 +41,22 @@
     </div>
     <!-- profil -->
     <div class="col-md-2 align-self-center">
-      <div class="picture d-flex">
-        <img
-          src="https://github.com/mdo.png"
-          alt="mdo"
-          width="100"
-          height="100"
-          class="rounded-circle shadow"
-        />
-        <div class="ps-2 align-self-center">
-          <h2 class="fw">Burak Yücel</h2>
-          <a class="btn btn-outline-dark rounded-pill" href="#" role="button"><i class="bi bi-person-plus"></i>
-            Takip Et</a>
+      <a href="# " class="link-dark text-decoration-none">
+        <div class="picture d-flex">
+          <img
+            src="https://github.com/mdo.png"
+            alt="mdo"
+            width="100"
+            height="100"
+            class="rounded-circle shadow"
+          />
+          <div class="ps-2 align-self-center">
+            <h2 class="fw">Burak Yücel</h2>
+            <a class="btn btn-outline-dark rounded-pill" href="#hey" role="button"><i class="bi bi-person-plus"></i>
+              Takip Et</a>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 
@@ -65,32 +67,32 @@
       <i class="bi bi-bag-check"></i>
       Malzemeler
     </h1>
-    <ul class="list-group list-group-flush text-nowrap fs-3">
-      <li class="list-group-item d-flex ms-4">
+    <ul class="list-group list-group-flush text-nowrap fs-5 malzemeler">
+      <li class="list-group-item d-flex ms-4 ">
         <i class="bi bi-chevron-right"></i>
         2 Adet Yumurta
-        <button class="btn ms-5 fw-bold rounded-pill btn-outline-success">
+        <button class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-success">
           <i class="bi bi-cart-plus"></i>
           Mağazada Göster
         </button>
       </li><li class="list-group-item d-flex ms-4">
         <i class="bi bi-chevron-right"></i>
         2 Adet Yumurta
-        <button class="btn ms-5 fw-bold rounded-pill btn-outline-success">
+        <button class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-success">
           <i class="bi bi-cart-plus"></i>
           Mağazada Göster
         </button>
       </li><li class="list-group-item d-flex ms-4">
         <i class="bi bi-chevron-right"></i>
         2 Adet Yumurta
-        <button class="btn ms-5 fw-bold rounded-pill btn-outline-success">
+        <button class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-success">
           <i class="bi bi-cart-plus"></i>
           Mağazada Göster
         </button>
       </li><li class="list-group-item d-flex ms-4">
         <i class="bi bi-chevron-right"></i>
         2 Adet Yumurta
-        <button class="btn ms-5 fw-bold rounded-pill btn-outline-success">
+        <button class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-success">
           <i class="bi bi-cart-plus"></i>
           Mağazada Göster
         </button>
@@ -106,6 +108,18 @@
 
       Nasıl Yapılır ?
     </h1>
+    <ol class="list-group list-group-flush text-nowrap fs-4">
+      <li class="list-group-item ms-4 ">
+        <div class="d-flex">
+        <h2 class="orderedList text-center me-3">1</h2>
+          Bol suda yıkayıp kök kısmını aldığınız ve yapraklarını temizlediğiniz karnabaharı küçük çiçeklerine ayırın.
+        </div>
+        <div class="d-flex">
+          <img src="../assets/zeytin.png" class="mx-auto shadow-sm" alt="" width="500em" style="border-radius: 25px;
+">
+        </div>
+      </li>
+    </ol>
   </div>
 
 </template>
@@ -115,7 +129,14 @@ export default {};
 </script>
 
 <style>
-.list-group-item {
-  width: 20%;
+.malzemeler{
+  width: 30%;
 }
+.orderedList{
+  border: 1px solid #2c3e50;
+  min-width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+}
+
 </style>

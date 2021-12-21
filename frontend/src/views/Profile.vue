@@ -26,7 +26,7 @@
 
   <!-- DIVIDER -->
 
-  <article class="profileNav mt-5" id="navs">
+  <article class="profileNav mt-4" id="navs">
     <div>
       <div class="profileNav">
         <nav>
@@ -44,7 +44,9 @@
               role="tab"
               aria-controls="nav-tariflerim"
               aria-selected="true"
-            >Tariflerim</button>
+            >
+              Tariflerim
+            </button>
             <button
               class="nav-link"
               id="nav-favTariflerim-tab"
@@ -54,17 +56,33 @@
               role="tab"
               aria-controls="nav-favTariflerim"
               aria-selected="false"
-            >Favori Tariflerim</button>
+            >
+              Favori Tariflerim
+            </button>
             <button
               class="nav-link"
-              id="nav-contact-tab"
+              id="nav-followers-tab"
               data-bs-toggle="tab"
-              data-bs-target="#nav-contact"
+              data-bs-target="#nav-followers"
               type="button"
               role="tab"
-              aria-controls="nav-contact"
+              aria-controls="nav-followers"
               aria-selected="false"
-            >Takipçiler</button>
+            >
+              Takipçilerim
+            </button>
+            <button
+              class="nav-link"
+              id="nav-followlist-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-followlist"
+              type="button"
+              role="tab"
+              aria-controls="nav-followlist"
+              aria-selected="false"
+            >
+              Takip Ettiklerim
+            </button>
           </div>
         </nav>
 
@@ -79,7 +97,14 @@
           >
             <div class="container justify-content-center">
               <div class="row row-cols-1 row-cols-md-4 g-3">
-                <recipe-card v-for="i in 5" :key="i" recipe-title="Tarif" />
+                <recipe-card
+                  v-for="i in 5"
+                  :key="i"
+                  recipe-title="Tarif Ad"
+                  profile-name="Burak"
+                  meal-for="2"
+                  meal-prep-time="30"
+                />
               </div>
             </div>
           </div>
@@ -94,209 +119,14 @@
           >
             <div class="container justify-content-center">
               <div class="row row-cols-1 row-cols-md-4 g-3">
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div class="d-flex justify-content-center align-items-center">
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >Tarifi Görüntüle</button>
-                          <button type="button" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">ÇiBörek Tarifi</p>
-                      <div class="d-flex justify-content-center align-items-center">
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >Tarifi Görüntüle</button>
-                          <button type="button" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">Mantı Tarifi</p>
-                      <div class="d-flex justify-content-center align-items-center">
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >Tarifi Görüntüle</button>
-                          <button type="button" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Burak Yucel</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <svg
-                      class="bd-placeholder-img card-img-top"
-                      width="100%"
-                      height="225"
-                      xmlns="http://www.w3.org/2000/svg"
-                      role="img"
-                      aria-label="Placeholder: Thumbnail"
-                      preserveAspectRatio="xMidYMid slice"
-                      focusable="false"
-                    >
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#55595c" />
-                      <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>
-
-                    <div class="card-body">
-                      <p class="card-text fs-3 fw-bolder">Sarma Tarifi</p>
-                      <div class="d-flex justify-content-center align-items-center">
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-sm btn-outline-success"
-                          >Tarifi Görüntüle</button>
-                          <button type="button" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-heart"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-4 ps-3">Elif Asya</p>
-                        </a>
-                        <small class="text-muted">10 dakika 5 kisilik</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <recipe-card
+                  v-for="i in 5"
+                  :key="i"
+                  recipe-title="Tarif Ad"
+                  profile-name="Burak"
+                  meal-for="2"
+                  meal-prep-time="30"
+                />
               </div>
             </div>
           </div>
@@ -305,100 +135,27 @@
 
           <div
             class="tab-pane fade"
-            id="nav-contact"
+            id="nav-followers"
             role="tabpanel"
-            aria-labelledby="nav-contact-tab"
+            aria-labelledby="nav-followers-tab"
           >
             <div class="container justify-content-center">
               <div class="row row-cols-1 row-cols-md-4 g-3">
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-3 mx-auto fw-bold">Burak Yucel</p>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-3 mx-auto fw-bold">Burak Yucel</p>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-3 mx-auto fw-bold">Burak Yucel</p>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <div class="container">
-                        <a
-                          href="#"
-                          class="d-flex link-dark text-decoration-none pt-2"
-                          aria-expanded="false"
-                        >
-                          <img
-                            src="https://github.com/mdo.png"
-                            alt="mdo"
-                            width="50"
-                            height="50"
-                            class="rounded-circle"
-                          />
-                          <p class="fs-3 mx-auto fw-bold">Burak Yucel</p>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <follower-card v-for="i in 5" :key="i" profileName="Burak" />
+              </div>
+            </div>
+          </div>
+
+          <!-- takip ettiklerim -->
+          <div
+            class="tab-pane fade"
+            id="nav-followlist"
+            role="tabpanel"
+            aria-labelledby="nav-followlist-tab"
+          >
+            <div class="container justify-content-center">
+              <div class="row row-cols-1 row-cols-md-4 g-3">
+                <follower-card v-for="i in 5" :key="i" profileName="Umut" />
               </div>
             </div>
           </div>
@@ -409,16 +166,18 @@
 </template>
 
 <script>
-import RecipeCard from '../components/RecipeCard.vue';
+import RecipeCard from "../components/RecipeCard.vue";
+import FollowerCard from "../components/FollowerCard.vue";
 export default {
   components: {
-    RecipeCard
-  }
+    RecipeCard,
+    FollowerCard,
+  },
 };
 </script>
 
 <style>
 .profileDetail {
-  border-left: 10px solid #00C2FF;
+  border-left: 10px solid #00c2ff;
 }
 </style>
