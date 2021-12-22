@@ -1,14 +1,24 @@
 <template>
-  <div class="col" v-if="recipe" >
+  <div class="col" v-if="recipe">
     <div class="card shadow-sm">
       <img
         class="card-img-top"
-        src="../assets/sulu.png"
+        src="../assets/hamur.png"
         alt="recipePhoto"
         width="100%"
         height="200"
       />
+      <div class="card-img-overlay">
+        <h5 class="card-title fw-bold display-6 mt-4" id="test">
+          Tarife Git<br />
+          <i class="bi bi-box-arrow-in-right"></i>
+        </h5>
+        <h5 class="card-title fw-bold display-6 mt-4">
+          Profile Git<br />
+          <i class="bi bi-box-arrow-in-right"></i>
+        </h5>
 
+      </div>
       <div class="card-body">
         <h1 class="card-text fs-2 fw-bold">{{ recipe.title }}</h1>
         <small class="text-muted">
@@ -17,7 +27,6 @@
           {{ recipe.cookingTime }}
           <i class="bi bi-alarm"></i>
         </small>
-        <div class="d-flex justify-content-center align-items-center"></div>
         <div class="container position-relative" style="z-index: 2">
           <router-link
             class="d-flex link-dark text-decoration-none"
@@ -68,6 +77,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
+<style>
+.card-img-overlay {
+  visibility: hidden;
+}
+.card:hover > .card-img-overlay {
+  visibility: visible;
+  background: linear-gradient(0deg, #00000088 10%, #ffffff44 100%);
+  height: 200px;
+}
 </style>
