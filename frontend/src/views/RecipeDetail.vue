@@ -42,7 +42,9 @@
     <!-- profil -->
     <div
       class="col-md-2 align-self-center"
-      v-if="recipeDetail.author[0].username === currentUser && currentUser.username"
+      v-if="
+        recipeDetail.author[0].username === currentUser && currentUser.username
+      "
     >
       <div class="picture d-flex">
         <img
@@ -62,9 +64,9 @@
       </div>
     </div>
 
-    <hr class="featurette-divider" />
+    <hr class="featurette-divider mt-3" />
 
-    <div class="container text-start">
+    <div class="row row-cols-1 col-md-8 text-start">
       <h1>
         <i class="bi bi-bag-check"></i>
         Malzemeler
@@ -83,9 +85,9 @@
       </ul>
     </div>
 
-    <hr class="featurette-divider" />
+    <hr class="featurette-divider mt-3"/>
 
-    <div class="container text-start">
+    <div class="row row-cols-1 col-md-8 text-start">
       <h1>
         <i class="bi bi-patch-question"></i>
         Nasıl Yapılır ?
@@ -93,7 +95,9 @@
       <ol class="list-group list-group-flush text-nowrap fs-4">
         <li class="list-group-item ms-4">
           <div class="d-flex">
-            <h2 class="orderedList text-center me-3">1</h2>Bol suda yıkayıp kök kısmını aldığınız ve yapraklarını temizlediğiniz karnabaharı küçük çiçeklerine ayırın.
+            <h2 class="orderedList text-center me-3">1</h2>
+            Bol suda yıkayıp kök kısmını aldığınız ve yapraklarını
+            temizlediğiniz karnabaharı küçük çiçeklerine ayırın.
           </div>
           <div class="d-flex">
             <img
@@ -101,8 +105,7 @@
               class="mx-auto shadow-sm"
               alt
               width="500em"
-              style="border-radius: 25px;
-"
+              style="border-radius: 25px"
             />
           </div>
         </li>
@@ -111,47 +114,56 @@
   </div>
 </template>
 
-<script>import { mapActions, mapState } from "vuex";
+<script>
+import { mapActions, mapState } from "vuex";
 
 export default {
-  name: 'RecipeDetail',
+  name: "RecipeDetail",
   async mounted() {
-    await this.setRecipeDetail(this.$route.params.recipeId)
+    await this.setRecipeDetail(this.$route.params.recipeId);
   },
   methods: {
-    ...mapActions(['setRecipeDetail', 'setUser']),
+    ...mapActions(["setRecipeDetail", "setUser"]),
     addToFavorites() {
-      this.$axios.put(`/user/${this.currentUser.email}`, {
-        favorites: [...this.currentUser.favorites, this.recipeDetail]
-      }).then(response => {
-        this.setUser(response.data)
-      })
+      this.$axios
+        .put(`/user/${this.currentUser.email}`, {
+          favorites: [...this.currentUser.favorites, this.recipeDetail],
+        })
+        .then((response) => {
+          this.setUser(response.data);
+        });
     },
     removeFromFavorites() {
-      let favoriteIndex = this.currentUser.favorites.findIndex(favorite => favorite.recipeId === this.recipeDetail.recipeId);
+      let favoriteIndex = this.currentUser.favorites.findIndex(
+        (favorite) => favorite.recipeId === this.recipeDetail.recipeId
+      );
 
       if (favoriteIndex > -1) {
         this.currentUser.favorites.splice(favoriteIndex, 1);
 
-        this.$axios.put(`/user/${this.currentUser.email}`, {
-          favorites: [...this.currentUser.favorites]
-        }).then(response => {
-          this.setUser(response.data)
-        })
+        this.$axios
+          .put(`/user/${this.currentUser.email}`, {
+            favorites: [...this.currentUser.favorites],
+          })
+          .then((response) => {
+            this.setUser(response.data);
+          });
       }
-    }
+    },
   },
   computed: {
-    ...mapState(['recipeDetail', 'currentUser']),
+    ...mapState(["recipeDetail", "currentUser"]),
     showAddToFavorites() {
-      let favoriteIndex = this.currentUser.favorites.findIndex(favorite => favorite.recipeId === this.recipeDetail.recipeId)
+      let favoriteIndex = this.currentUser.favorites.findIndex(
+        (favorite) => favorite.recipeId === this.recipeDetail.recipeId
+      );
 
       if (favoriteIndex > -1) {
-        return false
+        return false;
       }
-      return true
-    }
-  }
+      return true;
+    },
+  },
 };
 </script>
 
