@@ -322,7 +322,7 @@ export default {
 </script>
 
 <style>
-.kategori:hover{
+.kategori:hover, .navbar-toggler{
   box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 .offcanvas {
