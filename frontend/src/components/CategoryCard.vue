@@ -27,12 +27,12 @@ export default {
         2px 1px 0 #000;
 }
 .card {
-    border-radius: 5%;
+    border-radius: 1.5vh;
     min-width: 180px;
     max-width: 300px;
 }
 .card-img {
-    border-radius: 5%;
+    border-radius: 1.5vh;
     height: 200px;
 }
 </style>

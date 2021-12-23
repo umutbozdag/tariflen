@@ -1,9 +1,71 @@
 <template>
-  <!-- NAV -->
+  <!-- SIDEBAR -->
   <nav class="navbar bg-light fixed-top justify-content-between">
-    <a class="navbar-brand ps-5" href="/">
-      <img src="../assets/TariflenLogo.png" alt="Logo" height="45" />
-    </a>
+    <div>
+      <button
+        class="navbar-toggler rounded-circle btn mx-2 pt-2"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+      >
+        <h4>
+          <i class="bi bi-layout-text-sidebar-reverse"></i>
+        </h4>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img src="../assets/TariflenLogo.png" alt="Logo" height="45" />
+      </a>
+    </div>
+    <div
+      class="offcanvas offcanvas-start"
+      data-bs-scroll="true"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <img src="../assets/TariflenLogo.png" alt="Logo" height="38" />
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <hr class="featurette-divider" />
+      <div class="offcanvas-header text-center ">
+        <h3 class=""><i class="bi bi-tag"></i> Kategoriler</h3>
+      </div>
+
+      <div class="offcanvas-body text-center">
+        <ul class="navbar-nav fw-bold link-dark text-decoration-none">
+          <li class="nav-item">
+            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
+              <i class="bi bi-caret-right"></i>
+              Zeytinyağlılar</a
+            >
+          </li><li class="nav-item">
+            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
+              <i class="bi bi-caret-right"></i>
+              Zeytinyağlılar</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
+              <i class="bi bi-caret-right"></i>
+              Zeytinyağlılar</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
+              <i class="bi bi-caret-right"></i>
+              Zeytinyağlılar</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- SEARCH BAR -->
     <form class="d-flex">
       <input
@@ -24,7 +86,9 @@
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#modalSignup"
-      >Üye Ol</button>
+      >
+        Üye Ol
+      </button>
       <button
         class="btn btn btn-outline-success fw-bold rounded-pill"
         type="button"
@@ -35,38 +99,50 @@
         Giriş Yap
       </button>
     </div>
-
-    <!-- TARIF EKLE -->
-    <template v-if="currentUser">
-      <div class="addRecipe">
-        <a href="#" class="btn btn-lg btn-outline-danger fw-bold rounded-pill" role="button">
-          Tarif Ekle
-          <i class="bi bi-bag-plus"></i>
-        </a>
-      </div>
-      <!-- PROFIL -->
-      <li class="nav-item profile_logo dropdown pe-5">
-        <a
-          class="nav-link dropdown-toggle text-success"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
-        </a>
-
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <router-link class="dropdown-item" :to="{name: 'Profile', params: {username: this.currentUser.username}}">Profilim</router-link>
-          <a class="dropdown-item" href="#">Tariflerim</a>
-          <a class="dropdown-item" href="#">Favorilerim</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Çıkış Yap</a>
+    <div class="d-flex">
+      <!-- TARIF EKLE -->
+      <template v-if="currentUser">
+        <div class="addRecipe me-1">
+          <a
+            href="#"
+            class="btn btn-lg btn-outline-danger fw-bold rounded-pill"
+            role="button"
+          >
+            Tarif Ekle
+            <i class="bi bi-bag-plus"></i>
+          </a>
         </div>
-      </li>
-    </template>
+        <!-- PROFIL -->
+        <li class="nav-item profile_logo dropdown pe-5">
+          <a
+            class="nav-link dropdown-toggle text-success"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <router-link
+              class="dropdown-item"
+              :to="{
+                name: 'Profile',
+                params: { username: this.currentUser.username },
+              }"
+              >Profilim</router-link
+            >
+            <a class="dropdown-item" href="#">Tariflerim</a>
+            <a class="dropdown-item" href="#">Favorilerim</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Çıkış Yap</a>
+          </div>
+        </li>
+      </template>
+    </div>
   </nav>
 
   <hr class="featurette-divider" />
@@ -78,7 +154,12 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -161,7 +242,12 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Giriş Yap</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -203,7 +289,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -211,29 +297,35 @@ export default {
       password: null,
       username: null,
       name: null,
-      lastName: null
-    }
+      lastName: null,
+    };
   },
   methods: {
-    ...mapActions(['createUser', 'signInUser']),
+    ...mapActions(["createUser", "signInUser"]),
     submitUser() {
       this.createUser({
         email: this.email,
         password: this.password,
         username: this.username,
         name: this.name,
-        lastName: this.lastName
-      })
+        lastName: this.lastName,
+      });
     },
     signUser() {
-      this.signInUser({ email: this.email, password: this.password })
-    }
+      this.signInUser({ email: this.email, password: this.password });
+    },
   },
   computed: {
-    ...mapState(['currentUser'])
-  }
-}
+    ...mapState(["currentUser"]),
+  },
+};
 </script>
 
 <style>
+.kategori:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+.offcanvas {
+  width: 30vh;
+}
 </style>

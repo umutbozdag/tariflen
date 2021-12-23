@@ -78,6 +78,9 @@ export default {
 </script>
 
 <style>
+.card{
+  border-radius: 2vh;
+}
 .card-img-overlay {
   visibility: hidden;
 }
