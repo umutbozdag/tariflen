@@ -82,9 +82,9 @@
         Giriş Yap
       </button>
     </div>
-    <div class="d-flex" v-if="currentUser">
+    <div class="d-flex">
       <!-- TARIF EKLE -->
-      <template>
+      <template v-if="currentUser">
         <div class="addRecipe me-1">
           <router-link
             class="btn btn-lg btn-outline-danger fw-bold rounded-pill"

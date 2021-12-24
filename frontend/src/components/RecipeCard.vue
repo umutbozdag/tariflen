@@ -8,8 +8,17 @@
         width="100%"
         height="200"
       />
-      <div class="card-img-overlay">
-      </div>
+      <!-- <div class="card-img-overlay">
+        <h5 class="card-title fw-bold display-6 mt-4" id="test">
+          Tarife Git<br />
+          <i class="bi bi-box-arrow-in-right"></i>
+        </h5>
+        <h5 class="card-title fw-bold display-6 mt-4">
+          Profile Git<br />
+          <i class="bi bi-box-arrow-in-right"></i>
+        </h5>
+
+      </div> -->
       <div class="card-body">
         <h1 class="card-text fs-2 fw-bold">{{ recipe.title }}</h1>
         <small class="text-muted">
@@ -18,7 +27,7 @@
           {{ recipe.cookingTime }}
           <i class="bi bi-alarm"></i>
         </small>
-        <div class="container position-relative d-flex" style="z-index: 2">
+        <div class="container position-relative" style="z-index: 2">
      
             <img
               src="https://github.com/mdo.png"
@@ -27,8 +36,8 @@
               height="50"
               class="rounded-circle"
             />
-            <p v-if="!username" class="fs-4 ps-3">{{ recipe.author[0].username }}</p>
-                        <p v-else class="fs-4 ps-3">{{ username }}</p>
+            <!-- <p v-if="!username" class="fs-4 ps-3">{{ recipe.author[0].username }}</p>
+                        <p v-else class="fs-4 ps-3">{{ username }}</p> -->
         </div>
       </div>
       <router-link
@@ -59,13 +68,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .card-img-overlay {
   visibility: hidden;
 }
 .card:hover > .card-img-overlay {
   visibility: visible;
-  background: linear-gradient(0deg, #ff01015b 10%, #ffffff44 100%);
+  background: linear-gradient(0deg, #00000088 10%, #ffffff44 100%);
   height: 200px;
 }
 </style>
