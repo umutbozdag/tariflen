@@ -52,14 +52,14 @@
     <!-- SEARCH BAR -->
     <form class="d-flex">
       <input
-        class="form-control rounded-pill"
+        class="form-control"
         type="search"
         placeholder="Tarif Ara.."
         aria-label="Arama"
       />
-      <button class="btn btn-outline-success rounded-circle ms-2" type="submit">
+      <!-- <button class="btn btn-outline-success rounded-circle ms-2" type="submit">
         <i class="bi bi-search"></i>
-      </button>
+      </button> -->
     </form>
 
     <!-- UYEOL GIRISYAP -->

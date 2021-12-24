@@ -2,8 +2,8 @@
     <div class="ingredient-row d-flex mb-5">
         <input type="text" class="form-control me-5 ingredient-name" />
 
-        <v-select label="name" :filterable="false" :options="options" @search="onSearch">
-            <template #no-options>type to search GitHub repositories..</template>
+        <v-select label="name" :filterable="false" :options="options" v-model="selectedIngredient" @search="onSearch">
+            <template #no-options>Malzeme aramak için yazınız...</template>
             <template #option="option">
                 <div class="d-center">
                     <img :src="option.imageURL" />
@@ -28,7 +28,13 @@ export default {
     name: 'IngredientsRow',
     data() {
         return {
-            options: []
+            options: [],
+            selectedIngredient: null
+        }
+    },
+    watch: {
+        selectedIngredient(ingredient) {
+            this.$emit('ingredient-selected', ingredient)
         }
     },
     methods: {
@@ -44,6 +50,7 @@ export default {
             await this.getIngredients(search);
 
             vm.options = this.ingredients
+            
             loading(false);
         }, 350)
     },
