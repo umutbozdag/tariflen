@@ -38,30 +38,13 @@
         <h3 class=""><i class="bi bi-tag"></i> Kategoriler</h3>
       </div>
 
-      <div class="offcanvas-body text-center">
+      <div class="offcanvas-body text-center" v-if="categories">
         <ul class="navbar-nav fw-bold link-dark text-decoration-none">
-          <li class="nav-item">
-            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
+          <li v-for="category in categories" :key="category.categoryId" class="nav-item">
+            <router-link class="nav-link kategori fw-bold link-dark text-decoration-none" :to="{name: 'CategoryDetail', params: { categoryId: category.categoryId }}">
               <i class="bi bi-caret-right"></i>
-              Zeytinyağlılar</a
-            >
-          </li><li class="nav-item">
-            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
-              <i class="bi bi-caret-right"></i>
-              Zeytinyağlılar</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
-              <i class="bi bi-caret-right"></i>
-              Zeytinyağlılar</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link kategori fw-bold link-dark text-decoration-none" href="#">
-              <i class="bi bi-caret-right"></i>
-              Zeytinyağlılar</a
-            >
+              {{ category.title }}
+            </router-link>
           </li>
         </ul>
       </div>
@@ -103,14 +86,13 @@
       <!-- TARIF EKLE -->
       <template v-if="currentUser">
         <div class="addRecipe me-1">
-          <a
-            href="#"
+          <router-link
             class="btn btn-lg btn-outline-danger fw-bold rounded-pill"
-            role="button"
+            :to="{name: 'AddRecipe'}"
           >
             Tarif Ekle
             <i class="bi bi-bag-plus"></i>
-          </a>
+          </router-link>
         </div>
         <!-- PROFIL -->
         <li class="nav-item profile_logo dropdown pe-5">
@@ -135,10 +117,8 @@
               }"
               >Profilim</router-link
             >
-            <a class="dropdown-item" href="#">Tariflerim</a>
-            <a class="dropdown-item" href="#">Favorilerim</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Çıkış Yap</a>
+            <a @click="signOutUser" class="dropdown-item" href="#">Çıkış Yap</a>
           </div>
         </li>
       </template>
@@ -290,7 +270,9 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+
 export default {
+  name: 'Navbar',
   data() {
     return {
       email: null,
@@ -301,7 +283,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createUser", "signInUser"]),
+    ...mapActions(["createUser", "signInUser", 'setCategories', 'logoutUser']),
     submitUser() {
       this.createUser({
         email: this.email,
@@ -314,9 +296,15 @@ export default {
     signUser() {
       this.signInUser({ email: this.email, password: this.password });
     },
+    signOutUser() {
+      this.logoutUser()
+    }
+  },
+    async mounted() {
+    await this.setCategories();
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(["currentUser", 'categories']),
   },
 };
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <div class="d-flex justify-content-around">
+  <div class="container text-start mb-4 display-5">Kategoriler</div>
+  <div class="container d-flex justify-content-between">
+    
     <category-card v-for="category in categories" :key="category.categoryId" :category="category" />
   </div>
 
@@ -25,14 +27,16 @@
         <title>Placeholder</title>
         <rect width="100%" height="100%" fill="#eee" />
       </svg>
-      <a href="" class="stretched-link"></a>
+      <!-- <a href="" class="stretched-link"></a> -->
     </div>
   </div>
 
   <hr class="featurette-divider" />
   <!-- TARIFLER -->
 
-  <div class="container justify-content-center" v-if="recipes && recipes.length">
+  <div class="container" v-if="recipes && recipes.length">
+    <div class="text-start mb-4 display-5">Tarifler</div>
+
     <div class="row row-cols-1 row-cols-md-4 g-3">
       <recipe-card v-for="recipe in recipes" :key="recipe.recipeId" :recipe="recipe" />
     </div>

@@ -15,6 +15,7 @@ const classes = {
 
 async function getSearchResults(marketType, query) {
 	let itemsArr = [];
+	query = encodeURIComponent(query);
 	if (marketType === 'Carrefour') {
 		const { data } = await axios
 			.get(`${getMarketLinkByType(marketType)}/search/?text=${query}`,
@@ -23,8 +24,6 @@ async function getSearchResults(marketType, query) {
 		const $ = cheerio.load(data, {
 			normalizeWhitespace: true,
 		});
-
-
 
 		$(classes.carrefour.list).find(classes.carrefour.listItem).each((idx, item) => {
 			if ($(item).find(classes.carrefour.outOfStock).text()) {

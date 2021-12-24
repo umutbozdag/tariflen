@@ -30,6 +30,12 @@ CategorySchema.virtual('recipes', {
   foreignField: 'categoryId'
 })
 
+CategorySchema.virtual('recipes.author', {
+  ref: 'User',
+  localField: 'authorId',
+  foreignField: 'userId'
+})
+
 const Category = mongoose.model("Category", CategorySchema);
 
 module.exports = Category;

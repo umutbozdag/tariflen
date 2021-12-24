@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import axios from 'axios';
 
 export default createStore({
@@ -9,7 +9,8 @@ export default createStore({
     categories: null,
     recipes: null,
     recipeDetail: null,
-    userDetail: null
+    userDetail: null,
+    ingredients: null
   },
   mutations: {
     setUserHandler(state, user) {
@@ -29,6 +30,9 @@ export default createStore({
     },
     setUserDetailHandler(state, userDetail) {
       state.userDetail = userDetail
+    },
+    getIngredientsHandler(state, ingredients) {
+      state.ingredients = ingredients
     }
   },
   actions: {
@@ -94,6 +98,26 @@ export default createStore({
       try {
         const response = await axios.get(`http://localhost:3000/user/profile/${username}`);
         commit('setUserDetailHandler', response.data)
+      } catch (error) {
+        commit('setErrorHandler', error)
+      }
+    },
+    async logoutUser({commit}) {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        console.log('signout')
+        commit('setUserHandler', null)
+        // Sign-out successful.
+      }).catch((error) => {
+        commit('setErrorHandler', error)
+
+        // An error happened.
+      });
+    },
+    async getIngredients({commit}, input) {
+      try {
+        const response = await axios.get(`http://localhost:3000/search?q=${input}`);
+        commit('getIngredientsHandler', response.data.result)
       } catch (error) {
         commit('setErrorHandler', error)
       }

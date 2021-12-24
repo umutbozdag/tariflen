@@ -1,9 +1,9 @@
 <template>
-    <div class="card bg-info shadow">
+    <div @click="pushToCategoryDetail" class="card bg-info shadow">
         <img src="../assets/zeytin.png" class="card-img" alt="zeytin" />
         <div class="card-img-overlay">
             <a href="#" class="text-decoration-none">
-                <h2 class="card-title pt-5 mt-5 mb-4 fw-bold">{{category.title}}</h2>
+                <h2 class="card-title pt-5 mt-5 mb-4 fw-bold">{{ category.title }}</h2>
             </a>
         </div>
     </div>
@@ -15,6 +15,11 @@ export default {
     props: {
         category: {
             type: Object
+        }
+    },
+    methods: {
+        pushToCategoryDetail() {
+            this.$router.push({ name: 'CategoryDetail', params: { categoryId: this.category.categoryId } })
         }
     }
 }

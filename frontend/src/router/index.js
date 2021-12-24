@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import AddRecipe from '../views/AddRecipe.vue'
 import Profile from '../views/Profile.vue'
 import RecipeDetail from '../views/RecipeDetail.vue'
+import CategoryDetail from '../views/CategoryDetail.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/tarif/:recipeId',
     name: 'RecipeDetail',
     component: RecipeDetail
+  },
+  {
+    path: '/kategori/:categoryId',
+    name: 'CategoryDetail',
+    component: CategoryDetail
   }
 ]
 
