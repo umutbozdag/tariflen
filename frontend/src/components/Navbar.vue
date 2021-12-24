@@ -34,14 +34,24 @@
         ></button>
       </div>
       <hr class="featurette-divider" />
-      <div class="offcanvas-header text-center ">
+      <div class="offcanvas-header text-center">
         <h3 class=""><i class="bi bi-tag"></i> Kategoriler</h3>
       </div>
 
       <div class="offcanvas-body text-center" v-if="categories">
         <ul class="navbar-nav fw-bold link-dark text-decoration-none">
-          <li v-for="category in categories" :key="category.categoryId" class="nav-item">
-            <router-link class="nav-link kategori fw-bold link-dark text-decoration-none" :to="{name: 'CategoryDetail', params: { categoryId: category.categoryId }}">
+          <li
+            v-for="category in categories"
+            :key="category.categoryId"
+            class="nav-item"
+          >
+            <router-link
+              class="nav-link kategori fw-bold link-dark text-decoration-none"
+              :to="{
+                name: 'CategoryDetail',
+                params: { categoryId: category.categoryId },
+              }"
+            >
               <i class="bi bi-caret-right"></i>
               {{ category.title }}
             </router-link>
@@ -82,13 +92,13 @@
         Giriş Yap
       </button>
     </div>
-    <div class="d-flex">
-      <!-- TARIF EKLE -->
-      <template v-if="currentUser">
+    <!-- TARIF EKLE -->
+    <template v-if="currentUser">
+      <div class="d-flex">
         <div class="addRecipe me-1">
           <router-link
             class="btn btn-lg btn-outline-danger fw-bold rounded-pill"
-            :to="{name: 'AddRecipe'}"
+            :to="{ name: 'AddRecipe' }"
           >
             Tarif Ekle
             <i class="bi bi-bag-plus"></i>
@@ -121,8 +131,8 @@
             <a @click="signOutUser" class="dropdown-item" href="#">Çıkış Yap</a>
           </div>
         </li>
-      </template>
-    </div>
+      </div>
+    </template>
   </nav>
 
   <hr class="featurette-divider" />
@@ -272,7 +282,7 @@
 import { mapActions, mapState } from "vuex";
 
 export default {
-  name: 'Navbar',
+  name: "Navbar",
   data() {
     return {
       email: null,
@@ -283,7 +293,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["createUser", "signInUser", 'setCategories', 'logoutUser']),
+    ...mapActions(["createUser", "signInUser", "setCategories", "logoutUser"]),
     submitUser() {
       this.createUser({
         email: this.email,
@@ -297,21 +307,22 @@ export default {
       this.signInUser({ email: this.email, password: this.password });
     },
     signOutUser() {
-      this.logoutUser()
-    }
+      this.logoutUser();
+    },
   },
-    async mounted() {
+  async mounted() {
     await this.setCategories();
   },
   computed: {
-    ...mapState(["currentUser", 'categories']),
+    ...mapState(["currentUser", "categories"]),
   },
 };
 </script>
 
 <style>
-.kategori:hover, .navbar-toggler{
-  box-shadow: 0 0 11px rgba(33,33,33,.2);
+.kategori:hover,
+.navbar-toggler {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 }
 .offcanvas {
   width: 30vh;
