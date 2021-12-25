@@ -11,8 +11,8 @@ function findRecipe(
     return Recipe.findOne(query, {}, options).populate('author');
 }
 
-function findRecipes() {
-    return Recipe.find().populate('author');
+function findRecipes(query) {
+    return Recipe.find(query).lean().populate('author');
 }
 
 function findAndUpdateRecipe(

@@ -56,7 +56,7 @@ export default {
 },
   async mounted() {
     await this.setCategories();
-    await this.setRecipes();
+    await this.setRecipes({searchText: '', addQuery: false});
     console.log('recipes', this.recipes)
   },
   methods: {

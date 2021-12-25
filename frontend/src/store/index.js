@@ -10,7 +10,8 @@ export default createStore({
     recipes: null,
     recipeDetail: null,
     userDetail: null,
-    ingredients: null
+    ingredients: null,
+    searchResultRecipes: null
   },
   mutations: {
     setUserHandler(state, user) {
@@ -33,6 +34,9 @@ export default createStore({
     },
     getIngredientsHandler(state, ingredients) {
       state.ingredients = ingredients
+    },
+    setSearchResultRecipesHandler(state, searchResultRecipes) {
+      state.searchResultRecipes = searchResultRecipes
     }
   },
   actions: {
@@ -78,10 +82,16 @@ export default createStore({
         commit('setErrorHandler', error)
       }
     },
-    async setRecipes({ commit }) {
+    async setRecipes({ commit }, {searchText, addQuery = false}) {
       try {
-        const response = await axios.get(`http://localhost:3000/recipe`);
-        commit('setRecipesHandler', response.data)
+        let url = addQuery ? `http://localhost:3000/recipe?search=${searchText}` : `http://localhost:3000/recipe`;
+
+        const response = await axios.get(url);
+        if(!addQuery) {
+          commit('setRecipesHandler', response.data)
+        } else {
+          commit('setSearchResultRecipesHandler', response.data)
+        }
       } catch (error) {
         commit('setErrorHandler', error)
       }

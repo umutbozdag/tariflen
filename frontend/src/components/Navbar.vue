@@ -35,16 +35,14 @@
       </div>
       <hr class="featurette-divider" />
       <div class="offcanvas-header text-center">
-        <h3 class=""><i class="bi bi-tag"></i> Kategoriler</h3>
+        <h3 class>
+          <i class="bi bi-tag"></i> Kategoriler
+        </h3>
       </div>
 
       <div class="offcanvas-body text-center" v-if="categories">
         <ul class="navbar-nav fw-bold link-dark text-decoration-none">
-          <li
-            v-for="category in categories"
-            :key="category.categoryId"
-            class="nav-item"
-          >
+          <li v-for="category in categories" :key="category.categoryId" class="nav-item">
             <router-link
               class="nav-link kategori fw-bold link-dark text-decoration-none"
               :to="{
@@ -61,15 +59,27 @@
     </div>
     <!-- SEARCH BAR -->
     <form class="d-flex">
-      <input
-        class="form-control"
-        type="search"
-        placeholder="Tarif Ara.."
-        aria-label="Arama"
-      />
-      <!-- <button class="btn btn-outline-success rounded-circle ms-2" type="submit">
-        <i class="bi bi-search"></i>
-      </button> -->
+      <v-select
+        label="name"
+        :filterable="false"
+        :options="options"
+        v-model="selectedRecipe"
+        @search="onSearchRecipe"
+      >
+        <template #no-options>Tarif aramak için yazınız...</template>
+        <template #option="option">
+          <div class="d-center">
+            <!-- <img :src="option.imageURL" /> -->
+            <span>{{ option.title }}</span>
+          </div>
+        </template>
+        <template #selected-option="option">
+          <div class="selected d-center">
+            <!-- <img :src="option.imageURL" /> -->
+            <span>{{ option.title }}</span>
+          </div>
+        </template>
+      </v-select>
     </form>
 
     <!-- UYEOL GIRISYAP -->
@@ -79,9 +89,7 @@
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#modalSignup"
-      >
-        Üye Ol
-      </button>
+      >Üye Ol</button>
       <button
         class="btn btn btn-outline-success fw-bold rounded-pill"
         type="button"
@@ -125,8 +133,7 @@
                 name: 'Profile',
                 params: { username: this.currentUser.username },
               }"
-              >Profilim</router-link
-            >
+            >Profilim</router-link>
             <div class="dropdown-divider"></div>
             <a @click="signOutUser" class="dropdown-item" href="#">Çıkış Yap</a>
           </div>
@@ -144,12 +151,7 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor</h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -232,12 +234,7 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Giriş Yap</h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -280,6 +277,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import _ from 'lodash';
 
 export default {
   name: "Navbar",
@@ -290,10 +288,34 @@ export default {
       username: null,
       name: null,
       lastName: null,
+      options: [],
+      selectedRecipe: null
     };
   },
+  watch: {
+    selectedRecipe(recipe) {
+      this.$router.push({ name: 'RecipeDetail', params: { recipeId: recipe.recipeId } })
+      this.$emit('recipe-selected', recipe)
+      // this.$nextTick(function () {
+      //   this.selectedRecipe = null
+      // })
+    }
+  },
   methods: {
-    ...mapActions(["createUser", "signInUser", "setCategories", "logoutUser"]),
+    ...mapActions(["createUser", "signInUser", "setCategories", "logoutUser", 'setRecipes']),
+    onSearchRecipe(search, loading) {
+      if (search.length) {
+        loading(true);
+        this.search(loading, search, this);
+      }
+    },
+    search: _.debounce(async function (loading, search, vm) {
+      await this.setRecipes({ searchText: search, addQuery: true });
+
+      vm.options = this.searchResultRecipes
+
+      loading(false);
+    }, 350),
     submitUser() {
       this.createUser({
         email: this.email,
@@ -314,7 +336,7 @@ export default {
     await this.setCategories();
   },
   computed: {
-    ...mapState(["currentUser", "categories"]),
+    ...mapState(["currentUser", "categories", 'searchResultRecipes']),
   },
 };
 </script>
@@ -326,5 +348,8 @@ export default {
 }
 .offcanvas {
   width: 30vh;
+}
+.v-select {
+  width: 600px;
 }
 </style>

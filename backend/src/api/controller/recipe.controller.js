@@ -44,7 +44,7 @@ async function createRecipeHandler(req, res) {
             image,
             recipeImagePath: filePath
         }
-        
+
     }
 
     const recipe = await createRecipe({ ...body });
@@ -81,8 +81,10 @@ async function getRecipeHandler(req, res) {
 }
 
 async function getRecipesHandler(req, res) {
-    const recipes = await findRecipes().sort({ updatedAt: -1 });
+    const query = req.query.search ? { $text: {$search: req.query.search}} : {};
 
+    const recipes = await findRecipes(query).sort({ updatedAt: -1 });
+    
     return res.send(recipes);
 }
 

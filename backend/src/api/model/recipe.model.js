@@ -36,6 +36,9 @@ RecipeSchema.virtual('author', {
     foreignField: 'userId'
 })
 
+RecipeSchema.index({name: 'text', 'title': 'text'});
+
+
 // TODO
 // RecipeSchema.virtual('comments', [{
 

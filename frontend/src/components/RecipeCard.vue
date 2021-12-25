@@ -25,10 +25,10 @@
             height="50"
             class="rounded-circle"
           />
-          <p v-if="!username" class="fs-4 ps-3">
+          <!-- <p v-if="!username" class="fs-4 ps-3">
             {{ recipe.author[0].username }}
           </p>
-          <p v-else class="fs-4 ps-3">{{ username }}</p>
+          <p v-else class="fs-4 ps-3">{{ username }}</p> -->
         </div>
       </div>
       <router-link
