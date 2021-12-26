@@ -20,18 +20,16 @@
 
         <h5 class="text-start text-muted">Tarif fotoğrafını yükleyiniz:</h5>
         <div>
-          <input
-            class="form-control form-control-md"
-            id="formFileLg"
-            type="file"
-          />
+          <input class="form-control form-control-md" id="formFileLg" type="file" />
         </div>
       </div>
 
       <div class="row mt-5">
         <div class="col-4">
           <div class="formBorder p-4 mx-5">
-            <h5><i class="bi bi-people"></i> Kaç kişilik?</h5>
+            <h5>
+              <i class="bi bi-people"></i> Kaç kişilik?
+            </h5>
             <div class="col-3 mx-auto">
               <input type="number" class="form-control me-3" />
             </div>
@@ -39,7 +37,9 @@
         </div>
         <div class="col-4">
           <div class="formBorder p-4">
-            <h5><i class="bi bi-hourglass"></i> Hazırlama Süresi</h5>
+            <h5>
+              <i class="bi bi-hourglass"></i> Hazırlama Süresi
+            </h5>
             <div class="d-flex">
               <input type="number" class="form-control me-3" />
               <select class="form-select" aria-label="Default select example">
@@ -55,7 +55,9 @@
         </div>
         <div class="col-4 mb-5">
           <div class="formBorder p-4 mx-5">
-            <h5><i class="bi bi-stopwatch"></i> Pişirme Süresi</h5>
+            <h5>
+              <i class="bi bi-stopwatch"></i> Pişirme Süresi
+            </h5>
             <div class="d-flex">
               <input type="number" class="form-control me-3" />
               <select class="form-select" aria-label="Default select example">
@@ -72,9 +74,16 @@
       </div>
 
       <div>
-        <h3><i class="bi bi-list-ul"></i> Malzemeler</h3>
+        <h3>
+          <i class="bi bi-list-ul"></i> Malzemeler
+        </h3>
         <div class="formBorder p-5 mx-5">
-          <ingredient-row v-for="(ingredient, i) in ingredients" :key="i" />
+          <ingredient-row
+            v-for="(ingredient, i) in ingredients"
+            :key="i"
+            :index="i"
+            @delete-row="handleOnIngredientDeleteRow"
+          />
           <div class="d-flex justify-content-center mt-5">
             <button
               type="button"
@@ -89,14 +98,16 @@
       </div>
 
       <div class="pt-5">
-        <h3><i class="bi bi-question-circle"></i> Nasıl Yapılır</h3>
-        <!-- ho -->
+        <h3>
+          <i class="bi bi-question-circle"></i> Nasıl Yapılır
+        </h3>
+        <instruction-step-row v-for="(instruction, i) in instructions" :key="i" :step="i + 1" />
         <div class="formBorder p-5 mx-5">
           <div class="d-flex justify-content-center mt-5">
             <button
               type="button"
               class="btn btn-lg rounded-pill btn-outline-primary"
-              @click="addIngredientRow"
+              @click="addInstructionStepRow"
             >
               <i class="bi bi-journal-plus"></i>
               Adım Ekle
@@ -104,7 +115,7 @@
           </div>
         </div>
       </div>
-
+      <!-- 
       <div class="fixed-bottom">
         <div class="text-end m-5">
           <button
@@ -118,36 +129,52 @@
             <i class="bi bi-bag-check"></i>
           </button>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
 
 <script>
+import InstructionStepRow from "../components/InstructionStepRow.vue";
 import IngredientRow from "../components/IngredientRow.vue";
 
 export default {
   name: "AddRecipe",
-  components: { IngredientRow },
+  components: { InstructionStepRow, IngredientRow },
   data() {
     return {
-      ingredients: [
-        {
-          text: "Test",
-          link: "link",
-        },
-      ],
-    };
+      ingredients: [{
+        text: '',
+        link: ''
+      }],
+      instructions: [{
+        text: ''
+      }],
+    }
   },
   methods: {
-    addIngredientRow() {
-      this.ingredients.push({
-        text: "",
-        link: "",
-      });
+    onFileChanged(event) {
+      console.log(event.target.files[0]);
     },
-  },
-};
+    pushEmptyIngredient() {
+      this.ingredients.push({
+        text: '',
+        link: ''
+      })
+    },
+    handleOnIngredientDeleteRow(index) {
+      this.ingredients.splice(index, 1)
+    },
+    addIngredientRow() {
+      this.pushEmptyIngredient()
+    },
+    addInstructionStepRow() {
+      this.instructions.push({
+        text: ''
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

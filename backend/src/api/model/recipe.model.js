@@ -13,6 +13,7 @@ const RecipeSchema = new mongoose.Schema({
     title: { type: String, required: true, default: '' },
     description: { type: String, default: '' },
     ingredients: { type: Array, default: [] },
+    instructions: { type: Array, default: [] },
     categoryId: { type: String, required: true },
     authorId: { type: String, required: true },
     image: {
