@@ -42,20 +42,24 @@ import _ from "lodash";
 import { mapActions, mapState } from "vuex";
 
 export default {
-    name: "IngredientsRow",
+    name: 'IngredientsRow',
+    props: {
+        index: {
+            type: Number,
+            required: true
+        }
+    },
     data() {
         return {
             options: [],
-            selectedIngredient: null,
-        };
-    },
-    watch: {
-        selectedIngredient(ingredient) {
-            this.$emit("ingredient-selected", ingredient);
-        },
+            selectedIngredient: null
+        }
     },
     methods: {
         ...mapActions(["getIngredients"]),
+        deleteIngredientRow() {
+            this.$emit('delete-row', this.index)
+        },
         onSearch(search, loading) {
             if (search.length) {
                 loading(true);
