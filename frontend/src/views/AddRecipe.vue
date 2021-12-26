@@ -20,16 +20,18 @@
 
         <h5 class="text-start text-muted">Tarif fotoğrafını yükleyiniz:</h5>
         <div>
-          <input class="form-control form-control-md" id="formFileLg" type="file" />
+          <input
+            class="form-control form-control-md"
+            id="formFileLg"
+            type="file"
+          />
         </div>
       </div>
 
       <div class="row mt-5">
         <div class="col-4">
           <div class="formBorder p-4 mx-5">
-            <h5>
-              <i class="bi bi-people"></i> Kaç kişilik?
-            </h5>
+            <h5><i class="bi bi-people"></i> Kaç kişilik?</h5>
             <div class="col-3 mx-auto">
               <input type="number" class="form-control me-3" />
             </div>
@@ -37,9 +39,7 @@
         </div>
         <div class="col-4">
           <div class="formBorder p-4">
-            <h5>
-              <i class="bi bi-hourglass"></i> Hazırlama Süresi
-            </h5>
+            <h5><i class="bi bi-hourglass"></i> Hazırlama Süresi</h5>
             <div class="d-flex">
               <input type="number" class="form-control me-3" />
               <select class="form-select" aria-label="Default select example">
@@ -55,9 +55,7 @@
         </div>
         <div class="col-4 mb-5">
           <div class="formBorder p-4 mx-5">
-            <h5>
-              <i class="bi bi-stopwatch"></i> Pişirme Süresi
-            </h5>
+            <h5><i class="bi bi-stopwatch"></i> Pişirme Süresi</h5>
             <div class="d-flex">
               <input type="number" class="form-control me-3" />
               <select class="form-select" aria-label="Default select example">
@@ -74,9 +72,7 @@
       </div>
 
       <div>
-        <h3>
-          <i class="bi bi-list-ul"></i> Malzemeler
-        </h3>
+        <h3><i class="bi bi-list-ul"></i> Malzemeler</h3>
         <div class="formBorder p-5 mx-5">
           <ingredient-row
             v-for="(ingredient, i) in ingredients"
@@ -97,12 +93,16 @@
         </div>
       </div>
 
-      <div class="pt-5">
-        <h3>
-          <i class="bi bi-question-circle"></i> Nasıl Yapılır
-        </h3>
-        <instruction-step-row v-for="(instruction, i) in instructions" :key="i" :step="i + 1" />
+      <div class="m-5">
+        <h3><i class="bi bi-question-circle"></i> Nasıl Yapılır</h3>
         <div class="formBorder p-5 mx-5">
+          <instruction-step-row
+            v-for="(instruction, i) in instructions"
+            :key="i"
+            :step="i + 1"
+            @delete-row="handleOnInstructionDeleteRow"
+          />
+
           <div class="d-flex justify-content-center mt-5">
             <button
               type="button"
@@ -115,21 +115,20 @@
           </div>
         </div>
       </div>
-      <!-- 
+
       <div class="fixed-bottom">
-        <div class="text-end m-5">
+        <div class="text-end mb-3 me-5">
           <button
             type="submit"
             class="btn btn-lg rounded-pill btn-success sendRecipeBtn"
             @click="addIngredientRow"
           >
-          <i class="bi bi-chevron-double-right"></i>
-
+            <i class="bi bi-chevron-double-right"></i>
             Tarifi Gönder
             <i class="bi bi-bag-check"></i>
           </button>
         </div>
-      </div>-->
+      </div>
     </div>
   </div>
 </template>
@@ -143,14 +142,18 @@ export default {
   components: { InstructionStepRow, IngredientRow },
   data() {
     return {
-      ingredients: [{
-        text: '',
-        link: ''
-      }],
-      instructions: [{
-        text: ''
-      }],
-    }
+      ingredients: [
+        {
+          text: "",
+          link: "",
+        },
+      ],
+      instructions: [
+        {
+          text: "",
+        },
+      ],
+    };
   },
   methods: {
     onFileChanged(event) {
@@ -158,41 +161,45 @@ export default {
     },
     pushEmptyIngredient() {
       this.ingredients.push({
-        text: '',
-        link: ''
-      })
+        text: "",
+        link: "",
+      });
     },
     handleOnIngredientDeleteRow(index) {
-      this.ingredients.splice(index, 1)
+      this.ingredients.splice(index, 1);
+    },
+    handleOnInstructionDeleteRow(index) {
+      this.instructions.splice(index, 1);
     },
     addIngredientRow() {
-      this.pushEmptyIngredient()
+      this.pushEmptyIngredient();
     },
     addInstructionStepRow() {
       this.instructions.push({
-        text: ''
-      })
-    }
-  }
-}
+        text: "",
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
+html { margin-bottom: 65px }
 .formBorder {
   border: 1px dashed #2c3e50;
   border-radius: 1em;
 }
-.sendRecipeBtn{
+.sendRecipeBtn {
   animation: wiggle 2.5s ease-out infinite;
   animation-delay: 5s;
-  box-shadow: 0px 0px 15px rgba(0, 255, 64, 0.5);
-
+  box-shadow: 2px 1px 3px rgba(0, 255, 64, 0.5);
 }
-.sendRecipeBtn:hover{
+.sendRecipeBtn:hover {
   animation: none;
 }
 @keyframes wiggle {
-  0%, 7% {
+  0%,
+  7% {
     transform: rotateZ(0);
   }
   15% {
@@ -210,9 +217,9 @@ export default {
   35% {
     transform: rotateZ(-2deg);
   }
-  40%, 100% {
+  40%,
+  100% {
     transform: rotateZ(0);
   }
 }
-
 </style>
