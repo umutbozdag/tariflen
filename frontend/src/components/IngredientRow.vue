@@ -55,58 +55,46 @@ export default {
         return {
             options: [],
             selectedIngredient: null,
-        };
+            ingredientTitle: ''
+        }
+    },
+    watch: {
+        selectedIngredient(newVal) {
+            this.$emit('ingredient-updated', {
+                title: this.ingredientTitle,
+                ingredient: newVal,
+                index: this.index
+            });
+        },
+        ingredientTitle(newVal) {
+            this.$emit('ingredient-updated', {
+                title: newVal,
+                ingredient: this.selectedIngredient,
+                index: this.index
+            });
+        }
     },
     methods: {
         ...mapActions(["getIngredients"]),
         deleteIngredientRow() {
-            this.$emit("delete-row", this.index);
+            this.$emit('delete-row', this.index)
         },
-        data() {
-            return {
-                options: [],
-                selectedIngredient: null,
-                ingredientTitle: ''
+        onSearch(search, loading) {
+            if (search.length) {
+                loading(true);
+                this.search(loading, search, this);
             }
         },
-        watch: {
-            selectedIngredient(newVal) {
-                this.$emit('ingredient-updated', {
-                    title: this.ingredientTitle,
-                    ingredient: newVal,
-                    index: this.index
-                });
-            },
-            ingredientTitle(newVal) {
-                this.$emit('ingredient-updated', {
-                    title: newVal,
-                    ingredient: this.selectedIngredient,
-                    index: this.index
-                });
-            }
-        },
-        methods: {
-            ...mapActions(["getIngredients"]),
-            deleteIngredientRow() {
-                this.$emit('delete-row', this.index)
-            },
-            onSearch(search, loading) {
-                if (search.length) {
-                    loading(true);
-                    this.search(loading, search, this);
-                }
-            },
-            search: _.debounce(async function (loading, search, vm) {
-                await this.getIngredients(search);
+        search: _.debounce(async function (loading, search, vm) {
+            await this.getIngredients(search);
 
-                vm.options = this.ingredients;
+            vm.options = this.ingredients;
 
-                loading(false);
-            }, 350),
-        },
-        computed: {
-            ...mapState(["ingredients"]),
-        }
+            loading(false);
+        }, 350),
+    },
+    computed: {
+        ...mapState(["ingredients"]),
     }
 }
 </script>
