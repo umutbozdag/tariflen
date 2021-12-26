@@ -17,8 +17,7 @@ const RecipeSchema = new mongoose.Schema({
     categoryId: { type: String, required: true },
     authorId: { type: String, required: true },
     image: {
-        data: Buffer,
-        contentType: String
+        type: Object
     },
     comments: [{
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -26,7 +25,8 @@ const RecipeSchema = new mongoose.Schema({
         rate: { type: Number },
     }],
     cookingTime: { type: String, required: true },
-    mealFor: { type: Number, required: true }
+    mealFor: { type: Number, required: true },
+    preparationTime: { type: String, required: true },
 },
     { timestamps: true, toJSON: { virtuals: true } }
 );

@@ -15,6 +15,7 @@ const app = express()
 app.use(cors({credentials: true, origin: true}));
 app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
+// app.use(express.static(__dirname));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

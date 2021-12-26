@@ -4,6 +4,7 @@
       <div class="formBorder p-5">
         <div class="input-group input-group-lg mb-3">
           <input
+            v-model="recipeTitle"
             type="text"
             id="tarifAd"
             class="form-control"
@@ -13,6 +14,7 @@
 
         <div class="mb-5">
           <textarea
+            v-model="recipeDesc"
             class="form-control form-control-lg"
             placeholder="Tarifinizin açıklamasını yapınız..."
           ></textarea>
@@ -24,47 +26,76 @@
             class="form-control form-control-md"
             id="formFileLg"
             type="file"
+            name="file"
+            accept="image/*"
+            @change="uploadFile"
+            ref="file"
           />
+        </div>
+
+        <div class="mt-3">
+          <select v-model="selectedCategory" class="form-select" placeholder="Kategori seçiniz...">
+            <option selected>Lütfen Seçiniz</option>
+            <option
+              v-for="category in categories"
+              :key="category.categoryId"
+              :value="category"
+            >{{ category.title }}</option>
+          </select>
         </div>
       </div>
 
       <div class="row mt-5">
         <div class="col-4">
           <div class="formBorder p-4 mx-5">
-            <h5><i class="bi bi-people"></i> Kaç kişilik?</h5>
+            <h5>
+              <i class="bi bi-people"></i> Kaç kişilik?
+            </h5>
             <div class="col-3 mx-auto">
-              <input type="number" class="form-control me-3" />
+              <input v-model="mealFor" type="number" class="form-control me-3" />
             </div>
           </div>
         </div>
         <div class="col-4">
           <div class="formBorder p-4">
-            <h5><i class="bi bi-hourglass"></i> Hazırlama Süresi</h5>
+            <h5>
+              <i class="bi bi-hourglass"></i> Hazırlama Süresi
+            </h5>
             <div class="d-flex">
-              <input type="number" class="form-control me-3" />
-              <select class="form-select" aria-label="Default select example">
+              <input v-model="cookingTimeNumber" type="number" class="form-control me-3" />
+              <select
+                v-model="cookingTimeText"
+                class="form-select"
+                aria-label="Default select example"
+              >
                 <option selected>Lütfen Seçiniz</option>
-                <option value="1">Saniye</option>
-                <option value="2">Dakika</option>
-                <option value="3">Saat</option>
-                <option value="4">Gün</option>
-                <option value="5">Hafta</option>
+                <option value="Saniye">Saniye</option>
+                <option value="Dakika">Dakika</option>
+                <option value="Saat">Saat</option>
+                <option value="Gün">Gün</option>
+                <option value="Hafta">Hafta</option>
               </select>
             </div>
           </div>
         </div>
         <div class="col-4 mb-5">
           <div class="formBorder p-4 mx-5">
-            <h5><i class="bi bi-stopwatch"></i> Pişirme Süresi</h5>
+            <h5>
+              <i class="bi bi-stopwatch"></i> Pişirme Süresi
+            </h5>
             <div class="d-flex">
-              <input type="number" class="form-control me-3" />
-              <select class="form-select" aria-label="Default select example">
+              <input v-model="preparationTimeNumber" type="number" class="form-control me-3" />
+              <select
+                v-model="preparationTimeText"
+                class="form-select"
+                aria-label="Default select example"
+              >
                 <option selected>Lütfen Seçiniz</option>
-                <option value="1">Saniye</option>
-                <option value="2">Dakika</option>
-                <option value="3">Saat</option>
-                <option value="4">Gün</option>
-                <option value="5">Hafta</option>
+                <option value="Saniye">Saniye</option>
+                <option value="Dakika">Dakika</option>
+                <option value="Saat">Saat</option>
+                <option value="Gün">Gün</option>
+                <option value="Hafta">Hafta</option>
               </select>
             </div>
           </div>
@@ -72,13 +103,16 @@
       </div>
 
       <div>
-        <h3><i class="bi bi-list-ul"></i> Malzemeler</h3>
+        <h3>
+          <i class="bi bi-list-ul"></i> Malzemeler
+        </h3>
         <div class="formBorder p-5 mx-5">
           <ingredient-row
-            v-for="(ingredient, i) in ingredients"
-            :key="i"
-            :index="i"
+            v-for="(ingredient, index) in ingredients"
+            :key="index"
+            :index="index"
             @delete-row="handleOnIngredientDeleteRow"
+            @ingredient-updated="handleOnIngredientUpdated"
           />
           <div class="d-flex justify-content-center mt-5">
             <button
@@ -94,13 +128,17 @@
       </div>
 
       <div class="m-5">
-        <h3><i class="bi bi-question-circle"></i> Nasıl Yapılır</h3>
+        <h3>
+          <i class="bi bi-question-circle"></i> Nasıl Yapılır
+        </h3>
         <div class="formBorder p-5 mx-5">
           <instruction-step-row
             v-for="(instruction, i) in instructions"
             :key="i"
             :step="i + 1"
+            :index="i"
             @delete-row="handleOnInstructionDeleteRow"
+            @instruction-updated="handleOnInstructionUpdated"
           />
 
           <div class="d-flex justify-content-center mt-5">
@@ -116,13 +154,9 @@
         </div>
       </div>
 
-      <div class="fixed-bottom">
-        <div class="text-end mb-3 me-5">
-          <button
-            type="submit"
-            class="btn btn-lg rounded-pill btn-success sendRecipeBtn"
-            @click="addIngredientRow"
-          >
+      <div>
+        <div class="text-end m-5">
+          <button @click="sendRecipe" class="btn btn-lg rounded-pill btn-success sendRecipeBtn">
             <i class="bi bi-chevron-double-right"></i>
             Tarifi Gönder
             <i class="bi bi-bag-check"></i>
@@ -136,34 +170,72 @@
 <script>
 import InstructionStepRow from "../components/InstructionStepRow.vue";
 import IngredientRow from "../components/IngredientRow.vue";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "AddRecipe",
   components: { InstructionStepRow, IngredientRow },
   data() {
     return {
-      ingredients: [
-        {
-          text: "",
-          link: "",
-        },
-      ],
-      instructions: [
-        {
-          text: "",
-        },
-      ],
-    };
+      ingredients: [{
+        title: '',
+        ingredient: null
+      }],
+      instructions: [{
+        text: ''
+      }],
+      cookingTimeNumber: null,
+      cookingTimeText: '',
+      mealFor: null,
+      preparationTimeNumber: null,
+      preparationTimeText: '',
+      recipeTitle: '',
+      recipeDesc: '',
+      recipeImage: null,
+      selectedCategory: null
+    }
+  },
+  async mounted() {
+    await this.setCategories();
   },
   methods: {
-    onFileChanged(event) {
-      console.log(event.target.files[0]);
+    ...mapActions(['setCategories']),
+    async sendRecipe() {
+      const formData = new FormData();
+      formData.append('file', this.recipeImage);
+      for (var [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+
+      const recipeResponse = await this.$axios.post(`http://localhost:3000/recipe`, {
+        title: this.recipeTitle,
+        description: this.recipeDesc,
+        ingredients: this.ingredients,
+        instructions: this.instructions,
+        cookingTime: `${this.cookingTimeNumber} ${this.cookingTimeText}`,
+        preparationTime: `${this.preparationTimeNumber} ${this.preparationTimeText}`,
+        mealFor: this.mealFor,
+        authorId: this.currentUser.userId,
+        categoryId: this.selectedCategory.categoryId
+      })
+
+      await this.$axios.post(`http://localhost:3000/recipe/${recipeResponse.data.recipeId}/upload`, formData)
+
+    },
+    handleOnIngredientUpdated(ingredient) {
+      this.ingredients[ingredient.index] = ingredient
+    },
+    handleOnInstructionUpdated(instruction) {
+      this.instructions[instruction.index] = instruction
+    },
+    uploadFile() {
+      this.recipeImage = this.$refs.file.files[0];
     },
     pushEmptyIngredient() {
       this.ingredients.push({
-        text: "",
-        link: "",
-      });
+        title: '',
+        ingredient: null
+      })
     },
     handleOnIngredientDeleteRow(index) {
       this.ingredients.splice(index, 1);
@@ -176,15 +248,20 @@ export default {
     },
     addInstructionStepRow() {
       this.instructions.push({
-        text: "",
-      });
+        text: ''
+      })
     },
   },
-};
+  computed: {
+    ...mapState(['currentUser', 'categories'])
+  }
+}
 </script>
 
 <style scoped>
-html { margin-bottom: 65px }
+html {
+  margin-bottom: 65px;
+}
 .formBorder {
   border: 1px dashed #2c3e50;
   border-radius: 1em;

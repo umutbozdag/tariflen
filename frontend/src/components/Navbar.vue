@@ -65,6 +65,7 @@
         :options="options"
         v-model="selectedRecipe"
         @search="onSearchRecipe"
+        placeholder="Tarif aramak için yazınız..."
       >
         <template #no-options>Tarif aramak için yazınız...</template>
         <template #option="option">

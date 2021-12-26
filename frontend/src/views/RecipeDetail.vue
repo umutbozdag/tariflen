@@ -3,7 +3,8 @@
     <!--  -->
     <div class="col-md-2">
       <img
-        src="../assets/zeytin.png"
+        v-if="recipeDetail.image"
+        :src="require(`../../../backend/src/uploads/${recipeDetail.image.originalname}`)"
         alt="mdo"
         width="200"
         height="200"
@@ -85,7 +86,7 @@
       </ul>
     </div>
 
-    <hr class="featurette-divider mt-3"/>
+    <hr class="featurette-divider mt-3" />
 
     <div class="row row-cols-1 col-md-8 text-start">
       <h1>
@@ -95,8 +96,7 @@
       <ol class="list-group list-group-flush text-nowrap fs-4">
         <li class="list-group-item ms-4">
           <div class="d-flex">
-            <h2 class="orderedList text-center me-3">1</h2>
-            Bol suda yıkayıp kök kısmını aldığınız ve yapraklarını
+            <h2 class="orderedList text-center me-3">1</h2>Bol suda yıkayıp kök kısmını aldığınız ve yapraklarını
             temizlediğiniz karnabaharı küçük çiçeklerine ayırın.
           </div>
           <div class="d-flex">

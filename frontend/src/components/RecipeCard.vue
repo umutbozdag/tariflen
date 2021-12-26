@@ -3,7 +3,8 @@
     <div class="card shadow-sm">
       <img
         class="card-img-top"
-        src="../assets/hamur.png"
+        v-if="recipe.image"
+        :src="require(`../../../backend/src/uploads/${recipe.image.originalname}`)"
         alt="recipePhoto"
         width="100%"
         height="200"
