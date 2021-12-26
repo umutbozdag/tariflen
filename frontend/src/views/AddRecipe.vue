@@ -14,7 +14,7 @@
         <div class="mb-5">
           <textarea
             class="form-control form-control-lg"
-            placeholder="Tarifinizi açıklamasını yapınız..."
+            placeholder="Tarifinizin açıklamasını yapınız..."
           ></textarea>
         </div>
 
@@ -120,7 +120,7 @@
         <div class="text-end m-5">
           <button
             type="submit"
-            class="btn btn-lg rounded-pill btn-outline-success"
+            class="btn btn-lg rounded-pill btn-success sendRecipeBtn"
             @click="addIngredientRow"
           >
           <i class="bi bi-chevron-double-right"></i>
@@ -182,4 +182,37 @@ export default {
   border: 1px dashed #2c3e50;
   border-radius: 1em;
 }
+.sendRecipeBtn{
+  animation: wiggle 2.5s ease-out infinite;
+  animation-delay: 5s;
+  box-shadow: 0px 0px 15px rgba(0, 255, 64, 0.5);
+
+}
+.sendRecipeBtn:hover{
+  animation: none;
+}
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-10deg);
+  }
+  20% {
+    transform: rotateZ(5deg);
+  }
+  25% {
+    transform: rotateZ(-5deg);
+  }
+  30% {
+    transform: rotateZ(3deg);
+  }
+  35% {
+    transform: rotateZ(-2deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
+
 </style>

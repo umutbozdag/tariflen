@@ -28,39 +28,34 @@
             </v-select>
         </div>
         <div class="col-1">
-            <button v-if="index > 0" @click="deleteIngredientRow" class="btn btn-block btn-danger mx-auto ms-3">Sil</button>
+            <button
+                v-if="index > 0"
+                @click="deleteIngredientRow"
+                class="btn btn-block btn-danger mx-auto ms-3"
+            >Sil</button>
         </div>
     </div>
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapActions, mapState } from 'vuex';
+import _ from "lodash";
+import { mapActions, mapState } from "vuex";
 
 export default {
-    name: 'IngredientsRow',
-    props: {
-        index: {
-            type: Number,
-            required: true
-        }
-    },
+    name: "IngredientsRow",
     data() {
         return {
             options: [],
-            selectedIngredient: null
-        }
+            selectedIngredient: null,
+        };
     },
     watch: {
         selectedIngredient(ingredient) {
-            this.$emit('ingredient-selected', ingredient)
-        }
+            this.$emit("ingredient-selected", ingredient);
+        },
     },
     methods: {
-        ...mapActions(['getIngredients']),
-        deleteIngredientRow() {
-            this.$emit('delete-row', this.index)
-        },
+        ...mapActions(["getIngredients"]),
         onSearch(search, loading) {
             if (search.length) {
                 loading(true);
@@ -68,19 +63,19 @@ export default {
             }
         },
         search: _.debounce(async function (loading, search, vm) {
-            console.log(this)
+            console.log(this);
             await this.getIngredients(search);
 
-            vm.options = this.ingredients
+            vm.options = this.ingredients;
 
             loading(false);
-        }, 350)
+        }, 350),
     },
     computed: {
-        ...mapState(['ingredients'])
-    }
-}
-</script> 
+        ...mapState(["ingredients"]),
+    },
+};
+</script>
 
 <style lang="scss" scoped>
 img {
@@ -120,9 +115,5 @@ img {
     color: #3c3c3c;
     background-color: red;
     overflow-wrap: break-word;
-}
-
-button {
-    width: 100%;
 }
 </style>
