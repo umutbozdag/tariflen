@@ -35,14 +35,16 @@
       </div>
       <hr class="featurette-divider" />
       <div class="offcanvas-header text-center">
-        <h3 class>
-          <i class="bi bi-tag"></i> Kategoriler
-        </h3>
+        <h3 class><i class="bi bi-tag"></i> Kategoriler</h3>
       </div>
 
       <div class="offcanvas-body text-center" v-if="categories">
         <ul class="navbar-nav fw-bold link-dark text-decoration-none">
-          <li v-for="category in categories" :key="category.categoryId" class="nav-item">
+          <li
+            v-for="category in categories"
+            :key="category.categoryId"
+            class="nav-item"
+          >
             <router-link
               class="nav-link kategori fw-bold link-dark text-decoration-none"
               :to="{
@@ -90,7 +92,9 @@
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#modalSignup"
-      >Üye Ol</button>
+      >
+        Üye Ol
+      </button>
       <button
         class="btn btn btn-outline-success fw-bold rounded-pill"
         type="button"
@@ -120,7 +124,8 @@
             href="#"
             id="navbarDropdown"
             role="button"
-            data-bs-toggle="dropdown" aria-expanded="false"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
             <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
           </a>
@@ -132,7 +137,8 @@
                 name: 'Profile',
                 params: { username: this.currentUser.username },
               }"
-            >Profilim</router-link>
+              >Profilim</router-link
+            >
             <div class="dropdown-divider"></div>
             <a @click="signOutUser" class="dropdown-item" href="#">Çıkış Yap</a>
           </div>
@@ -150,7 +156,12 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -228,12 +239,17 @@
 
     <!-- SIGNIN MODAL -->
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal" tabindex="-1" role="dialog" id="modalSignin">
       <div class="modal-dialog" role="document">
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Giriş Yap</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -245,6 +261,7 @@
                   id="floatingInput"
                   placeholder="name@example.com"
                   v-model="email"
+                  required
                 />
                 <label for="floatingInput">E-Posta</label>
               </div>
@@ -255,6 +272,7 @@
                   id="floatingPassword"
                   placeholder="Password"
                   v-model="password"
+                  required
                 />
                 <label for="floatingPassword">Şifre</label>
               </div>
@@ -276,7 +294,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import _ from 'lodash';
+import _ from "lodash";
 
 export default {
   name: "Navbar",
@@ -288,20 +306,29 @@ export default {
       name: null,
       lastName: null,
       options: [],
-      selectedRecipe: null
+      selectedRecipe: null,
     };
   },
   watch: {
     selectedRecipe(recipe) {
-      this.$router.push({ name: 'RecipeDetail', params: { recipeId: recipe.recipeId } })
-      this.$emit('recipe-selected', recipe)
+      this.$router.push({
+        name: "RecipeDetail",
+        params: { recipeId: recipe.recipeId },
+      });
+      this.$emit("recipe-selected", recipe);
       // this.$nextTick(function () {
       //   this.selectedRecipe = null
       // })
-    }
+    },
   },
   methods: {
-    ...mapActions(["createUser", "signInUser", "setCategories", "logoutUser", 'setRecipes']),
+    ...mapActions([
+      "createUser",
+      "signInUser",
+      "setCategories",
+      "logoutUser",
+      "setRecipes",
+    ]),
     onSearchRecipe(search, loading) {
       if (search.length) {
         loading(true);
@@ -311,7 +338,7 @@ export default {
     search: _.debounce(async function (loading, search, vm) {
       await this.setRecipes({ searchText: search, addQuery: true });
 
-      vm.options = this.searchResultRecipes
+      vm.options = this.searchResultRecipes;
 
       loading(false);
     }, 350),
@@ -324,18 +351,23 @@ export default {
         lastName: this.lastName,
       });
     },
-    signUser() {
-      this.signInUser({ email: this.email, password: this.password });
+    async signUser() {
+      await this.signInUser({ email: this.email, password: this.password });
+
+      if (this.currentUser) {
+        this.$router.go();
+      }
     },
     signOutUser() {
       this.logoutUser();
+      this.$router.push({ name: "Home" });
     },
   },
   async mounted() {
     await this.setCategories();
   },
   computed: {
-    ...mapState(["currentUser", "categories", 'searchResultRecipes']),
+    ...mapState(["currentUser", "categories", "searchResultRecipes"]),
   },
 };
 </script>

@@ -20,7 +20,27 @@
           ></textarea>
         </div>
 
-        <h5 class="text-start text-muted">Tarif fotoğrafını yükleyiniz:</h5>
+        <h5 class="text-start text-muted">
+          Tarifin ait olduğu kategoriyi seçiniz:
+        </h5>
+        <div class="">
+          <select
+            v-model="selectedCategory"
+            class="form-select"
+            placeholder="Kategori seçiniz..."
+          >
+            <option value=null selected>Lütfen Kategori Seçiniz</option>
+            <option
+              v-for="category in categories"
+              :key="category.categoryId"
+              :value="category"
+            >
+              {{ category.title }}
+            </option>
+          </select>
+        </div>
+
+        <h5 class="text-start text-muted mt-3">Tarif fotoğrafı yükleyiniz:</h5>
         <div>
           <input
             class="form-control form-control-md"
@@ -32,37 +52,30 @@
             ref="file"
           />
         </div>
-
-        <div class="mt-3">
-          <select v-model="selectedCategory" class="form-select" placeholder="Kategori seçiniz...">
-            <option selected>Lütfen Seçiniz</option>
-            <option
-              v-for="category in categories"
-              :key="category.categoryId"
-              :value="category"
-            >{{ category.title }}</option>
-          </select>
-        </div>
       </div>
 
       <div class="row mt-5">
         <div class="col-4">
           <div class="formBorder p-4 mx-5">
-            <h5>
-              <i class="bi bi-people"></i> Kaç kişilik?
-            </h5>
+            <h5><i class="bi bi-people"></i> Kaç kişilik?</h5>
             <div class="col-3 mx-auto">
-              <input v-model="mealFor" type="number" class="form-control me-3" />
+              <input
+                v-model="mealFor"
+                type="number"
+                class="form-control me-3"
+              />
             </div>
           </div>
         </div>
         <div class="col-4">
           <div class="formBorder p-4">
-            <h5>
-              <i class="bi bi-hourglass"></i> Hazırlama Süresi
-            </h5>
+            <h5><i class="bi bi-hourglass"></i> Hazırlama Süresi</h5>
             <div class="d-flex">
-              <input v-model="cookingTimeNumber" type="number" class="form-control me-3" />
+              <input
+                v-model="cookingTimeNumber"
+                type="number"
+                class="form-control me-3"
+              />
               <select
                 v-model="cookingTimeText"
                 class="form-select"
@@ -80,11 +93,13 @@
         </div>
         <div class="col-4 mb-5">
           <div class="formBorder p-4 mx-5">
-            <h5>
-              <i class="bi bi-stopwatch"></i> Pişirme Süresi
-            </h5>
+            <h5><i class="bi bi-stopwatch"></i> Pişirme Süresi</h5>
             <div class="d-flex">
-              <input v-model="preparationTimeNumber" type="number" class="form-control me-3" />
+              <input
+                v-model="preparationTimeNumber"
+                type="number"
+                class="form-control me-3"
+              />
               <select
                 v-model="preparationTimeText"
                 class="form-select"
@@ -103,9 +118,7 @@
       </div>
 
       <div>
-        <h3>
-          <i class="bi bi-list-ul"></i> Malzemeler
-        </h3>
+        <h3><i class="bi bi-list-ul"></i> Malzemeler</h3>
         <div class="formBorder p-5 mx-5">
           <ingredient-row
             v-for="(ingredient, index) in ingredients"
@@ -128,9 +141,7 @@
       </div>
 
       <div class="m-5">
-        <h3>
-          <i class="bi bi-question-circle"></i> Nasıl Yapılır
-        </h3>
+        <h3><i class="bi bi-question-circle"></i> Nasıl Yapılır</h3>
         <div class="formBorder p-5 mx-5">
           <instruction-step-row
             v-for="(instruction, i) in instructions"
@@ -156,7 +167,10 @@
 
       <div>
         <div class="text-end m-5">
-          <button @click="sendRecipe" class="btn btn-lg rounded-pill btn-success sendRecipeBtn">
+          <button
+            @click="sendRecipe"
+            class="btn btn-lg rounded-pill btn-success sendRecipeBtn"
+          >
             <i class="bi bi-chevron-double-right"></i>
             Tarifi Gönder
             <i class="bi bi-bag-check"></i>
@@ -177,65 +191,74 @@ export default {
   components: { InstructionStepRow, IngredientRow },
   data() {
     return {
-      ingredients: [{
-        title: '',
-        ingredient: null
-      }],
-      instructions: [{
-        text: ''
-      }],
+      ingredients: [
+        {
+          title: "",
+          ingredient: null,
+        },
+      ],
+      instructions: [
+        {
+          text: "",
+        },
+      ],
       cookingTimeNumber: null,
-      cookingTimeText: '',
+      cookingTimeText: "",
       mealFor: null,
       preparationTimeNumber: null,
-      preparationTimeText: '',
-      recipeTitle: '',
-      recipeDesc: '',
+      preparationTimeText: "",
+      recipeTitle: "",
+      recipeDesc: "",
       recipeImage: null,
-      selectedCategory: null
-    }
+      selectedCategory: null,
+    };
   },
   async mounted() {
     await this.setCategories();
   },
   methods: {
-    ...mapActions(['setCategories']),
+    ...mapActions(["setCategories"]),
     async sendRecipe() {
       const formData = new FormData();
-      formData.append('file', this.recipeImage);
+      formData.append("file", this.recipeImage);
       for (var [key, value] of formData.entries()) {
         console.log(key, value);
       }
 
-      const recipeResponse = await this.$axios.post(`http://localhost:3000/recipe`, {
-        title: this.recipeTitle,
-        description: this.recipeDesc,
-        ingredients: this.ingredients,
-        instructions: this.instructions,
-        cookingTime: `${this.cookingTimeNumber} ${this.cookingTimeText}`,
-        preparationTime: `${this.preparationTimeNumber} ${this.preparationTimeText}`,
-        mealFor: this.mealFor,
-        authorId: this.currentUser.userId,
-        categoryId: this.selectedCategory.categoryId
-      })
+      const recipeResponse = await this.$axios.post(
+        `http://localhost:3000/recipe`,
+        {
+          title: this.recipeTitle,
+          description: this.recipeDesc,
+          ingredients: this.ingredients,
+          instructions: this.instructions,
+          cookingTime: `${this.cookingTimeNumber} ${this.cookingTimeText}`,
+          preparationTime: `${this.preparationTimeNumber} ${this.preparationTimeText}`,
+          mealFor: this.mealFor,
+          authorId: this.currentUser.userId,
+          categoryId: this.selectedCategory.categoryId,
+        }
+      );
 
-      await this.$axios.post(`http://localhost:3000/recipe/${recipeResponse.data.recipeId}/upload`, formData)
-
+      await this.$axios.post(
+        `http://localhost:3000/recipe/${recipeResponse.data.recipeId}/upload`,
+        formData
+      );
     },
     handleOnIngredientUpdated(ingredient) {
-      this.ingredients[ingredient.index] = ingredient
+      this.ingredients[ingredient.index] = ingredient;
     },
     handleOnInstructionUpdated(instruction) {
-      this.instructions[instruction.index] = instruction
+      this.instructions[instruction.index] = instruction;
     },
     uploadFile() {
       this.recipeImage = this.$refs.file.files[0];
     },
     pushEmptyIngredient() {
       this.ingredients.push({
-        title: '',
-        ingredient: null
-      })
+        title: "",
+        ingredient: null,
+      });
     },
     handleOnIngredientDeleteRow(index) {
       this.ingredients.splice(index, 1);
@@ -248,14 +271,14 @@ export default {
     },
     addInstructionStepRow() {
       this.instructions.push({
-        text: ''
-      })
+        text: "",
+      });
     },
   },
   computed: {
-    ...mapState(['currentUser', 'categories'])
-  }
-}
+    ...mapState(["currentUser", "categories"]),
+  },
+};
 </script>
 
 <style scoped>

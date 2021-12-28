@@ -4,7 +4,6 @@
     
     <category-card v-for="category in categories" :key="category.categoryId" :category="category" />
   </div>
-
 <!-- GUNUN MENUSU -->
   <hr class="featurette-divider" />
 
@@ -45,6 +44,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import { notify } from "@kyvg/vue3-notification";
 import CategoryCard from '../components/CategoryCard.vue';
 import RecipeCard from '../components/RecipeCard.vue';
 
@@ -60,11 +60,17 @@ export default {
     console.log('recipes', this.recipes)
   },
   methods: {
-    ...mapActions(['setCategories', 'setRecipes'])
+    ...mapActions(['setCategories', 'setRecipes']),
+    test(){
+      notify({
+        title: "Authorization",
+        text: "You have been logged in!",
+      })
+    }
   },
   computed: {
     ...mapState(['categories', 'recipes'])
-  }
+  },
 };
 </script>
 

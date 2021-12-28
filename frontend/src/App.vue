@@ -2,6 +2,7 @@
   <div id="app">
     <navbar />
     <router-view />
+    <notifications position="top center"/>
   </div>
 </template>
 

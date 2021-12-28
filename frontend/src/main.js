@@ -7,12 +7,14 @@ import firebase from './firebase';
 import axiosPlugin from './plugins/axios';
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
+import Notifications from '@kyvg/vue3-notification'
 
 const app = createApp(App);
 
 app.use(store)
 app.use(router)
 app.use(axiosPlugin)
+app.use(Notifications)
 app.component('v-select', vSelect)
 app.directive('click-outside', {
     beforeMount(el, binding) {

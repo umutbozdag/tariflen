@@ -1,5 +1,5 @@
 <template>
-    <div @click="pushToCategoryDetail" class="card bg-info shadow">
+    <div @click="pushToCategoryDetail" class="card shadow">
         <img src="../assets/zeytin.png" class="card-img" alt="zeytin" />
         <div class="card-img-overlay">
             <a href="#" class="text-decoration-none">
