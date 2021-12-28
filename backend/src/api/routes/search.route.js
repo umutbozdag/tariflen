@@ -7,6 +7,8 @@ router.get('/', async function (req, res) {
   try {
     let searchResults = await getSearchResults('Carrefour', req.query.q)
 
+    console.log(searchResults)
+
     res.status(200).json({
       result: searchResults
     })

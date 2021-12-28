@@ -73,14 +73,15 @@
         Malzemeler
       </h1>
       <ul class="list-group list-group-flush text-nowrap fs-5 malzemeler">
-        <li class="list-group-item d-flex ms-4">
+        <li v-for="(ingredient, i) in recipeDetail.ingredients" :key="i" class="list-group-item d-flex ms-4">
           <i class="bi bi-chevron-right"></i>
-          2 Adet Yumurta
+          {{ ingredient.title }}
           <button
             class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-success"
+            v-if="ingredient.ingredient"
           >
             <i class="bi bi-cart-plus"></i>
-            Mağazada Göster
+            <a :href="ingredient.ingredient.link" target="_blank">Mağazada Göster</a>
           </button>
         </li>
       </ul>
@@ -94,10 +95,10 @@
         Nasıl Yapılır ?
       </h1>
       <ol class="list-group list-group-flush text-nowrap fs-4">
-        <li class="list-group-item ms-4">
+        <li v-for="instruction in recipeDetail.instructions" :key="instruction.index" class="list-group-item ms-4">
           <div class="d-flex">
-            <h2 class="orderedList text-center me-3">1</h2>Bol suda yıkayıp kök kısmını aldığınız ve yapraklarını
-            temizlediğiniz karnabaharı küçük çiçeklerine ayırın.
+            <h2 class="orderedList text-center me-3">{{instruction.index + 1}}</h2>
+            {{instruction.text}}
           </div>
           <div class="d-flex">
             <img

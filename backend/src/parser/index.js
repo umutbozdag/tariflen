@@ -9,7 +9,8 @@ const classes = {
 		unitPrice: '.item-price-unit',
 		price: '.item-price',
 		name: '.item-name',
-		imageURL: 'a .thumb img'
+		imageURL: 'a .thumb img',
+		link: '.product_click a'
 	}
 }
 
@@ -34,17 +35,16 @@ async function getSearchResults(marketType, query) {
 			let name = $(item).find(classes.carrefour.name);
 			let imageURL = $(item).find(classes.carrefour.imageURL).attr('data-src');
 
-
+			let link = $(item).find(classes.carrefour.link).attr('href');
+			
 			itemsArr.push({
 				name: name.text().trim(),
 				imageURL,
 				unitPrice: unitPrice.text().trim(),
-				price: price.text().trim()
+				price: price.text().trim(),
+				link: `${getMarketLinkByType(marketType)}${link}`
 			})
 		});
-
-		console.log(itemsArr);
-
 	}
 
 	return itemsArr
