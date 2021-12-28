@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userDetail">
+  <div v-if="userDetail && currentUser">
     <div class="container mt-5">
       <div class="picture d-inline-flex justify-content-center">
         <img
@@ -20,6 +20,22 @@
               {{ userDetail.followers.length }} Takipçi
               <i class="bi bi-people"></i>
             </p>
+          </div>
+        </div>
+
+        <div
+          class="d-flex align-items-center ms-5"
+          v-if="currentUser.username !== userDetail.username"
+        >
+          <div class="d-flex mx-auto">
+            <template v-if="this.userDetail.followers.length">
+              <button v-if="showFollowButton" @click="followUser">Takip et</button>
+              <button v-else @click="unfollowUser">Takipten çık</button>
+            </template>
+
+            <template v-else>
+              <button @click="followUser">Takip et</button>
+            </template>
           </div>
         </div>
       </div>
@@ -55,7 +71,12 @@
                 role="tab"
                 aria-controls="nav-favTariflerim"
                 aria-selected="false"
-              >Favori Tariflerim</button>
+              >
+                <span
+                  v-if="currentUser && currentUser.username === userDetail.username"
+                >Favori Tariflerim</span>
+                <span v-else>Favori Tarifleri</span>
+              </button>
               <button
                 class="nav-link"
                 id="nav-contact-tab"
@@ -117,11 +138,21 @@
               role="tabpanel"
               aria-labelledby="nav-contact-tab"
             >
-              <div class="container justify-content-center">
+              <div class="container justify-content-center" v-if="userDetail.followers.length">
                 <div class="row row-cols-1 row-cols-md-4 g-3">
-                  <follower-card v-for="follower in userDetail.followers" :key="follower.userId" :profileName="follower.username"/>
+                  <follower-card
+                    v-for="follower in userDetail.followers"
+                    :key="follower.userId"
+                    :username="follower.username"
+                  />
                 </div>
               </div>
+              <div
+                id="nav-contact"
+                role="tabpanel"
+                aria-labelledby="nav-contact-tab"
+                v-else
+              >Hiç takipçi bulunamadı</div>
             </div>
           </div>
         </div>
@@ -134,6 +165,7 @@
 import { mapActions, mapState } from 'vuex';
 import RecipeCard from '../components/RecipeCard.vue';
 import FollowerCard from '../components/FollowerCard.vue';
+
 export default {
   name: 'Profile',
   components: {
@@ -141,10 +173,84 @@ export default {
     FollowerCard
   },
   methods: {
-    ...mapActions(['setUserDetail'])
+    ...mapActions(['setUserDetail']),
+    async unfollowUser() {
+      const followsIdx = this.currentUser.follows.findIndex(u => u.username === this.userDetail.username)
+      const followersIdx = this.userDetail.followers.findIndex(u => u.username === this.currentUser.username)
+
+      this.currentUser.follows.splice(followsIdx, 1)
+      this.userDetail.followers.splice(followersIdx, 1)
+
+      console.log(followsIdx, followersIdx)
+
+      // followers.push({
+      //   username: this.currentUser.username,
+      //   name: this.currentUser.name,
+      //   lastName: this.currentUser.lastName,
+      //   userId: this.currentUser.userId,
+      //   email: this.currentUser.email,
+      //   _id: this.currentUser._id
+      // });
+      // follows.push({
+      //   username: this.userDetail.username,
+      //   name: this.userDetail.name,
+      //   lastName: this.userDetail.lastName,
+      //   userId: this.userDetail.userId,
+      //   email: this.userDetail.email,
+      //   _id: this.userDetail._id
+      // })
+
+      const userDetailResp = await this.$axios.put(`http://localhost:3000/user/${this.userDetail.email}`, {
+         followers: this.userDetail.followers 
+      })
+
+      this.userDetail.followers = userDetailResp.data.followers
+
+      const currentUserResp = await this.$axios.put(`http://localhost:3000/user/${this.currentUser.email}`, {
+         follows: this.currentUser.follows
+      })
+
+      this.currentUser.follows = currentUserResp.data.follows
+    },
+    async followUser() {
+      const followers = []
+      const follows = []
+
+      followers.push({
+        username: this.currentUser.username,
+        name: this.currentUser.name,
+        lastName: this.currentUser.lastName,
+        userId: this.currentUser.userId,
+        email: this.currentUser.email,
+        _id: this.currentUser._id
+      });
+      follows.push({
+        username: this.userDetail.username,
+        name: this.userDetail.name,
+        lastName: this.userDetail.lastName,
+        userId: this.userDetail.userId,
+        email: this.userDetail.email,
+        _id: this.userDetail._id
+      })
+
+      const userDetailResp = await this.$axios.put(`http://localhost:3000/user/${this.userDetail.email}`, {
+        followers
+      })
+
+      this.userDetail.followers = userDetailResp.data.followers
+
+      const currentUserResp = await this.$axios.put(`http://localhost:3000/user/${this.currentUser.email}`, {
+        follows
+      })
+
+      this.currentUser.follows = currentUserResp.data.follows
+    }
   },
   computed: {
-    ...mapState(['userDetail', 'currentUser'])
+    ...mapState(['userDetail', 'currentUser']),
+    showFollowButton() {
+      return this.currentUser.follows.find(u => u.username === this.userDetail.username)?.length === 0
+    }
   },
 
   async mounted() {

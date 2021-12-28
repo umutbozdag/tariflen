@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar />
-    <router-view />
+    <router-view :key="$route.fullPath" />
     <notifications position="top center"/>
   </div>
 </template>

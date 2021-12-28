@@ -17,8 +17,10 @@ app.use(express.static(__dirname + '/public'));
 app.use('/uploads', express.static('uploads'));
 // app.use(express.static(__dirname));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({
+    limit: '500mb'
+}));
+app.use(express.urlencoded({ extended: false, limit: '500mb' }));
 app.use('/search', searchRoute)
 app.use('/recipe', recipeRoute)
 app.use('/user', userRoute)

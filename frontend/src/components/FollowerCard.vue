@@ -3,8 +3,9 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="container">
-          <a
+          <router-link
             href="#"
+            :to="{name: 'Profile', params: { username }}"
             class="d-flex link-dark text-decoration-none pt-2 stretched-link"
             aria-expanded="false"
           >
@@ -15,8 +16,8 @@
               height="50"
               class="rounded-circle"
             />
-            <p class="fs-3 mx-auto fw-bold">{{ profileName }}</p>
-          </a>
+            <p class="fs-3 mx-auto fw-bold">{{ username }}</p>
+          </router-link>
         </div>
       </div>
     </div>
@@ -27,8 +28,9 @@
 export default {
   name: "FollowerCard",
   props: {
-    profileName: {
+    username: {
       type: String,
+      required: true
     },
   },
 };

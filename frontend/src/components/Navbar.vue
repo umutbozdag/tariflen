@@ -342,14 +342,15 @@ export default {
 
       loading(false);
     }, 350),
-    submitUser() {
-      this.createUser({
+    async submitUser() {
+      await this.createUser({
         email: this.email,
         password: this.password,
         username: this.username,
         name: this.name,
         lastName: this.lastName,
       });
+      this.$router.go();
     },
     async signUser() {
       await this.signInUser({ email: this.email, password: this.password });
