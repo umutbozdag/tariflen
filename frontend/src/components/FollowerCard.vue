@@ -16,7 +16,7 @@
               v-bind:style="styleObject"
             >
               <h2 class="m-auto fw-bold text-dark">
-                {{ username.charAt(0) }}
+                {{ username.charAt(0).toUpperCase() }}
               </h2>
             </div>
             <p class="fs-3 mx-auto fw-bold">{{ username }}</p>

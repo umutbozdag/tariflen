@@ -9,7 +9,7 @@
           v-bind:style="styleObject"
         >
           <h1 class="m-auto display-1 fw-bold text-dark">
-            {{ userDetail.name.charAt(0) }}
+            {{ userDetail.name.charAt(0).toUpperCase() }}
           </h1>
         </div>
         <div class="ps-5">
@@ -91,15 +91,28 @@
               </button>
               <button
                 class="nav-link"
-                id="nav-contact-tab"
+                id="nav-followers-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#nav-contact"
+                data-bs-target="#nav-followers"
                 type="button"
                 role="tab"
-                aria-controls="nav-contact"
+                aria-controls="nav-followers"
                 aria-selected="false"
               >
                 Takipçiler
+              </button>
+
+               <button
+                class="nav-link"
+                id="nav-iFollow-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-iFollow"
+                type="button"
+                role="tab"
+                aria-controls="nav-iFollow"
+                aria-selected="false"
+              >
+                Takip Edilen
               </button>
             </div>
           </nav>
@@ -148,9 +161,9 @@
 
             <div
               class="tab-pane fade"
-              id="nav-contact"
+              id="nav-followers"
               role="tabpanel"
-              aria-labelledby="nav-contact-tab"
+              aria-labelledby="nav-followers-tab"
             >
               <div
                 class="container justify-content-center"
@@ -165,14 +178,42 @@
                 </div>
               </div>
               <div
-                id="nav-contact"
+                id="nav-followers"
                 role="tabpanel"
-                aria-labelledby="nav-contact-tab"
+                aria-labelledby="nav-followers-tab"
                 v-else
               >
                 Hiç takipçi bulunamadı
               </div>
             </div>
+      
+             <div
+              class="tab-pane fade"
+              id="nav-iFollow"
+              role="tabpanel"
+              aria-labelledby="nav-iFollow-tab"
+            >
+              <div
+                class="container justify-content-center"
+                v-if="userDetail.follows.length"
+              >
+                <div class="row row-cols-1 row-cols-md-4 g-3">
+                  <follower-card
+                    v-for="follower in currentUser.follows"
+                    :key="follower.userId"
+                    :username="follower.username"
+                  />
+                </div>
+              </div>
+              <div
+                id="nav-iFollow"
+                role="tabpanel"
+                aria-labelledby="nav-iFollow-tab"
+                v-else
+              >
+                Hiç takipçi bulunamadı
+              </div>
+            </div>      
           </div>
         </div>
       </div>

@@ -87,6 +87,7 @@ async function getCategoriesHandler(req, res) {
 }
 
 async function deleteCategoryHandler(req, res) {
+    console.log(req.params.categoryId);
     const categoryId = req.params.categoryId;
 
     const category = await findCategory({ categoryId });

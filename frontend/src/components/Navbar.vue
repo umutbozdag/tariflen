@@ -382,7 +382,7 @@ export default {
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 }
 .offcanvas {
-  width: 30vh;
+  width: 40vh;
 }
 .v-select {
   width: 600px;

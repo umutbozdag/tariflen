@@ -28,7 +28,7 @@
             v-bind:style="styleObject"
           >
             <h2 class="m-auto fw-bold text-dark">
-              B<!-- {{ userDetail.name.charAt(0) }} -->
+              B<!-- {{ userDetail.name.charAt(0).toUpperCase() }} -->
             </h2>
           </div>
           <!-- <p v-if="!username" class="fs-4 ps-3">
