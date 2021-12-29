@@ -4,7 +4,9 @@
       <img
         class="card-img-top"
         v-if="recipe.image"
-        :src="require(`../../../backend/src/uploads/${recipe.image.originalname}`)"
+        :src="
+          require(`../../../backend/src/uploads/${recipe.image.originalname}`)
+        "
         alt="recipePhoto"
         width="100%"
         height="200"
@@ -20,15 +22,15 @@
         </small>
         <div class="container position-relative d-flex" style="z-index: 2">
           <div
-          class="rounded-circle shadow-sm d-flex"
-          id="profilePhoto"
-          style="width: 50px; height: 50px"
-          v-bind:style="styleObject"
-        >
-          <h2 class="m-auto fw-bold text-dark">
-            B<!-- {{ userDetail.name.charAt(0) }} -->
-          </h2>
-        </div>
+            class="rounded-circle shadow-sm d-flex"
+            id="profilePhoto"
+            style="width: 50px; height: 50px"
+            v-bind:style="styleObject"
+          >
+            <h2 class="m-auto fw-bold text-dark">
+              B<!-- {{ userDetail.name.charAt(0) }} -->
+            </h2>
+          </div>
           <!-- <p v-if="!username" class="fs-4 ps-3">
             {{ recipe.author[0].username }}
           </p>
@@ -64,14 +66,25 @@ export default {
     return {
       styleObject: {
         background: this.random_rgba(),
-
       },
     };
   },
   methods: {
     random_rgba() {
-      var o = Math.round, r = Math.random, s = 255;
-      return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + '.35' + ')';
+      var o = Math.round,
+        r = Math.random,
+        s = 255;
+      return (
+        "rgba(" +
+        o(r() * s) +
+        "," +
+        o(r() * s) +
+        "," +
+        o(r() * s) +
+        "," +
+        ".35" +
+        ")"
+      );
     },
   },
 };
@@ -79,7 +92,7 @@ export default {
 
 <style scoped>
 .card-img-overlay {
-  opacity: .8;
+  opacity: 0.8;
   visibility: hidden;
 }
 .card:hover > .card-img-overlay {

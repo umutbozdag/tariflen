@@ -5,17 +5,20 @@
         <div class="container">
           <router-link
             href="#"
-            :to="{name: 'Profile', params: { username }}"
+            :to="{ name: 'Profile', params: { username } }"
             class="d-flex link-dark text-decoration-none pt-2 stretched-link"
             aria-expanded="false"
           >
-            <img
-              src="https://github.com/mdo.png"
-              alt="mdo"
-              width="50"
-              height="50"
-              class="rounded-circle"
-            />
+            <div
+              class="rounded-circle shadow-sm d-flex"
+              id="profilePhoto"
+              style="width: 50px; height: 50px"
+              v-bind:style="styleObject"
+            >
+              <h2 class="m-auto fw-bold text-dark">
+                {{ username.charAt(0) }}
+              </h2>
+            </div>
             <p class="fs-3 mx-auto fw-bold">{{ username }}</p>
           </router-link>
         </div>
@@ -30,7 +33,32 @@ export default {
   props: {
     username: {
       type: String,
-      required: true
+      required: true,
+    },
+  },
+  data() {
+    return {
+      styleObject: {
+        background: this.random_rgba(),
+      },
+    };
+  },
+  methods: {
+    random_rgba() {
+      var o = Math.round,
+        r = Math.random,
+        s = 255;
+      return (
+        "rgba(" +
+        o(r() * s) +
+        "," +
+        o(r() * s) +
+        "," +
+        o(r() * s) +
+        "," +
+        ".35" +
+        ")"
+      );
     },
   },
 };
