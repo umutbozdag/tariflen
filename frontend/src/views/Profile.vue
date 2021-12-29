@@ -2,15 +2,20 @@
   <div v-if="userDetail && currentUser">
     <div class="container mt-5">
       <div class="picture d-inline-flex justify-content-center">
-        <img
-          src="https://github.com/mdo.png"
-          alt="mdo"
-          width="200"
-          height="200"
-          class="rounded-circle shadow"
-        />
+        <div
+          class="rounded-circle shadow d-flex"
+          id="profilePhoto"
+          style="width: 150px; height: 150px"
+          v-bind:style="styleObject"
+        >
+          <h1 class="m-auto display-1 fw-bold text-dark">
+            {{ userDetail.name.charAt(0) }}
+          </h1>
+        </div>
         <div class="ps-5">
-          <h1 class="display-1">{{ userDetail.name }} {{ userDetail.lastName }}</h1>
+          <h1 class="display-1">
+            {{ userDetail.name }} {{ userDetail.lastName }}
+          </h1>
           <div class="d-flex mx-auto">
             <p class="profileDetail display-6 mt-3 ps-2">
               {{ userDetail.recipes.length }} Tarif
@@ -29,7 +34,9 @@
         >
           <div class="d-flex mx-auto">
             <template v-if="this.userDetail.followers.length">
-              <button v-if="showFollowButton" @click="followUser">Takip et</button>
+              <button v-if="showFollowButton" @click="followUser">
+                Takip et
+              </button>
               <button v-else @click="unfollowUser">Takipten çık</button>
             </template>
 
@@ -61,7 +68,9 @@
                 role="tab"
                 aria-controls="nav-tariflerim"
                 aria-selected="true"
-              >Tariflerim</button>
+              >
+                Tariflerim
+              </button>
               <button
                 class="nav-link"
                 id="nav-favTariflerim-tab"
@@ -73,8 +82,11 @@
                 aria-selected="false"
               >
                 <span
-                  v-if="currentUser && currentUser.username === userDetail.username"
-                >Favori Tariflerim</span>
+                  v-if="
+                    currentUser && currentUser.username === userDetail.username
+                  "
+                  >Favori Tariflerim</span
+                >
                 <span v-else>Favori Tarifleri</span>
               </button>
               <button
@@ -86,7 +98,9 @@
                 role="tab"
                 aria-controls="nav-contact"
                 aria-selected="false"
-              >Takipçiler</button>
+              >
+                Takipçiler
+              </button>
             </div>
           </nav>
 
@@ -138,7 +152,10 @@
               role="tabpanel"
               aria-labelledby="nav-contact-tab"
             >
-              <div class="container justify-content-center" v-if="userDetail.followers.length">
+              <div
+                class="container justify-content-center"
+                v-if="userDetail.followers.length"
+              >
                 <div class="row row-cols-1 row-cols-md-4 g-3">
                   <follower-card
                     v-for="follower in userDetail.followers"
@@ -152,7 +169,9 @@
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
                 v-else
-              >Hiç takipçi bulunamadı</div>
+              >
+                Hiç takipçi bulunamadı
+              </div>
             </div>
           </div>
         </div>
@@ -162,26 +181,38 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-import RecipeCard from '../components/RecipeCard.vue';
-import FollowerCard from '../components/FollowerCard.vue';
+import { mapActions, mapState } from "vuex";
+import RecipeCard from "../components/RecipeCard.vue";
+import FollowerCard from "../components/FollowerCard.vue";
 
 export default {
-  name: 'Profile',
+  name: "Profile",
   components: {
     RecipeCard,
-    FollowerCard
+    FollowerCard,
+  },
+  data() {
+    return {
+      styleObject: {
+        background: this.random_rgba(),
+
+      },
+    };
   },
   methods: {
-    ...mapActions(['setUserDetail']),
+    ...mapActions(["setUserDetail"]),
     async unfollowUser() {
-      const followsIdx = this.currentUser.follows.findIndex(u => u.username === this.userDetail.username)
-      const followersIdx = this.userDetail.followers.findIndex(u => u.username === this.currentUser.username)
+      const followsIdx = this.currentUser.follows.findIndex(
+        (u) => u.username === this.userDetail.username
+      );
+      const followersIdx = this.userDetail.followers.findIndex(
+        (u) => u.username === this.currentUser.username
+      );
 
-      this.currentUser.follows.splice(followsIdx, 1)
-      this.userDetail.followers.splice(followersIdx, 1)
+      this.currentUser.follows.splice(followsIdx, 1);
+      this.userDetail.followers.splice(followersIdx, 1);
 
-      console.log(followsIdx, followersIdx)
+      console.log(followsIdx, followersIdx);
 
       // followers.push({
       //   username: this.currentUser.username,
@@ -200,21 +231,27 @@ export default {
       //   _id: this.userDetail._id
       // })
 
-      const userDetailResp = await this.$axios.put(`http://localhost:3000/user/${this.userDetail.email}`, {
-         followers: this.userDetail.followers 
-      })
+      const userDetailResp = await this.$axios.put(
+        `http://localhost:3000/user/${this.userDetail.email}`,
+        {
+          followers: this.userDetail.followers,
+        }
+      );
 
-      this.userDetail.followers = userDetailResp.data.followers
+      this.userDetail.followers = userDetailResp.data.followers;
 
-      const currentUserResp = await this.$axios.put(`http://localhost:3000/user/${this.currentUser.email}`, {
-         follows: this.currentUser.follows
-      })
+      const currentUserResp = await this.$axios.put(
+        `http://localhost:3000/user/${this.currentUser.email}`,
+        {
+          follows: this.currentUser.follows,
+        }
+      );
 
-      this.currentUser.follows = currentUserResp.data.follows
+      this.currentUser.follows = currentUserResp.data.follows;
     },
     async followUser() {
-      const followers = []
-      const follows = []
+      const followers = [];
+      const follows = [];
 
       followers.push({
         username: this.currentUser.username,
@@ -222,7 +259,7 @@ export default {
         lastName: this.currentUser.lastName,
         userId: this.currentUser.userId,
         email: this.currentUser.email,
-        _id: this.currentUser._id
+        _id: this.currentUser._id,
       });
       follows.push({
         username: this.userDetail.username,
@@ -230,32 +267,46 @@ export default {
         lastName: this.userDetail.lastName,
         userId: this.userDetail.userId,
         email: this.userDetail.email,
-        _id: this.userDetail._id
-      })
+        _id: this.userDetail._id,
+      });
 
-      const userDetailResp = await this.$axios.put(`http://localhost:3000/user/${this.userDetail.email}`, {
-        followers
-      })
+      const userDetailResp = await this.$axios.put(
+        `http://localhost:3000/user/${this.userDetail.email}`,
+        {
+          followers,
+        }
+      );
 
-      this.userDetail.followers = userDetailResp.data.followers
+      this.userDetail.followers = userDetailResp.data.followers;
 
-      const currentUserResp = await this.$axios.put(`http://localhost:3000/user/${this.currentUser.email}`, {
-        follows
-      })
+      const currentUserResp = await this.$axios.put(
+        `http://localhost:3000/user/${this.currentUser.email}`,
+        {
+          follows,
+        }
+      );
 
-      this.currentUser.follows = currentUserResp.data.follows
-    }
+      this.currentUser.follows = currentUserResp.data.follows;
+    },
+    random_rgba() {
+      var o = Math.round, r = Math.random, s = 255;
+      return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + '.4' + ')';
+    },
   },
   computed: {
-    ...mapState(['userDetail', 'currentUser']),
+    ...mapState(["userDetail", "currentUser"]),
     showFollowButton() {
-      return this.currentUser.follows.find(u => u.username === this.userDetail.username)?.length === 0
-    }
+      return (
+        this.currentUser.follows.find(
+          (u) => u.username === this.userDetail.username
+        )?.length === 0
+      );
+    },
   },
 
   async mounted() {
-    this.setUserDetail(this.$route.params.username)
-  }
+    await this.setUserDetail(this.$route.params.username);
+  },
 };
 </script>
 

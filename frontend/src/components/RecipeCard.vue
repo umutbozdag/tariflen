@@ -19,13 +19,16 @@
           <i class="bi bi-alarm"></i>
         </small>
         <div class="container position-relative d-flex" style="z-index: 2">
-          <img
-            src="https://github.com/mdo.png"
-            alt="mdo"
-            width="50"
-            height="50"
-            class="rounded-circle"
-          />
+          <div
+          class="rounded-circle shadow-sm d-flex"
+          id="profilePhoto"
+          style="width: 50px; height: 50px"
+          v-bind:style="styleObject"
+        >
+          <h2 class="m-auto fw-bold text-dark">
+            B<!-- {{ userDetail.name.charAt(0) }} -->
+          </h2>
+        </div>
           <!-- <p v-if="!username" class="fs-4 ps-3">
             {{ recipe.author[0].username }}
           </p>
@@ -57,11 +60,26 @@ export default {
       type: String,
     },
   },
+  data() {
+    return {
+      styleObject: {
+        background: this.random_rgba(),
+
+      },
+    };
+  },
+  methods: {
+    random_rgba() {
+      var o = Math.round, r = Math.random, s = 255;
+      return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + '.35' + ')';
+    },
+  },
 };
 </script>
 
 <style scoped>
 .card-img-overlay {
+  opacity: .8;
   visibility: hidden;
 }
 .card:hover > .card-img-overlay {

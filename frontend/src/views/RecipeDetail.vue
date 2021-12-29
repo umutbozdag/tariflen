@@ -77,7 +77,7 @@
           <i class="bi bi-chevron-right"></i>
           {{ ingredient.title }}
           <button
-            class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-success"
+            class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-primary text-decoration-none"
             v-if="ingredient.ingredient"
           >
             <i class="bi bi-cart-plus"></i>

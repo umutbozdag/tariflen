@@ -350,7 +350,10 @@ export default {
         name: this.name,
         lastName: this.lastName,
       });
-      this.$router.go();
+
+      if (this.currentUser) {
+        this.$router.go();
+      }
     },
     async signUser() {
       await this.signInUser({ email: this.email, password: this.password });
