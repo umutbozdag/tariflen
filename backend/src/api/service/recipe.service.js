@@ -8,11 +8,11 @@ function findRecipe(
     query,
     options = { lean: true }
 ) {
-    return Recipe.findOne(query, {}, options).populate('author');
+    return Recipe.findOne(query, {}, options);
 }
 
 function findRecipes(query) {
-    return Recipe.find(query).lean().populate('author');
+    return Recipe.find(query).lean();
 }
 
 function findAndUpdateRecipe(

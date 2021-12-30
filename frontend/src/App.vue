@@ -59,4 +59,9 @@ export default {
 body {
   padding-top: 4rem;
 }
+
+.rounded-circle {
+  object-fit: cover;
+}
+
 </style>

@@ -1,32 +1,30 @@
 <template>
   <div class="container text-start mb-4 display-5">İlginizi Çekebilecek Kategoriler</div>
-  <div class="container d-flex justify-content-between">
-    
-    <category-card v-for="category in categories" :key="category.categoryId" :category="category" />
+  <div v-if="categories && categories.length" class="container d-flex justify-content-between">
+    <category-card
+      v-for="category in categories.slice(0, 5)"
+      :key="category.categoryId"
+      :category="category"
+    />
   </div>
-<!-- GUNUN MENUSU -->
+  <!-- GUNUN MENUSU -->
   <hr class="featurette-divider" />
 
-  <div class="row featurette justify-content-center position-relative">
-    <div class="col-md-3 mt-2">
-      <h2 class="featurette-heading display-5">Günün Menüsü</h2>
-      <h2 class="featurette-heading text-muted">Kurufasulye Pilav</h2>
+  <div @click="goToRecipeDetail" class="row recipe-of-the-day justify-content-center position-relative" v-if="recipeOfTheDay">
+    <div class="col-md-4 mt-2">
+      <h2 class="featurette-heading display-6">
+        Günün Menüsü:
+        <span class="fs-3">{{ recipeOfTheDay.title }}</span>
+      </h2>
+      <div class="featurette-heading text-muted fs-4">{{ recipeOfTheDay.description }}</div>
     </div>
     <div class="col-md-3">
-      <svg
-        class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-        width="150"
-        height="150"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label="Placeholder: 500x500"
-        preserveAspectRatio="xMidYMid slice"
-        focusable="false"
-      >
-        <title>Placeholder</title>
-        <rect width="100%" height="100%" fill="#eee" />
-      </svg>
-      <!-- <a href="" class="stretched-link"></a> -->
+      <img
+        :src="
+          require(`../../../backend/src/uploads/${recipeOfTheDay.image.originalname}`)
+        "
+        alt
+      />
     </div>
   </div>
 
@@ -53,15 +51,18 @@ export default {
   components: {
     CategoryCard,
     RecipeCard
-},
+  },
   async mounted() {
     await this.setCategories();
-    await this.setRecipes({searchText: '', addQuery: false});
+    await this.setRecipes({ searchText: '', addQuery: false });
     console.log('recipes', this.recipes)
   },
   methods: {
     ...mapActions(['setCategories', 'setRecipes']),
-    test(){
+    goToRecipeDetail() {
+      this.$router.push({ name: 'RecipeDetail', params: { recipeId: this.recipeOfTheDay.recipeId } })
+    },
+    test() {
       notify({
         title: "Authorization",
         text: "You have been logged in!",
@@ -69,10 +70,24 @@ export default {
     }
   },
   computed: {
-    ...mapState(['categories', 'recipes'])
+    ...mapState(['categories', 'recipes']),
+    recipeOfTheDay() {
+      return this.recipes && this.recipes.length && this.recipes[Math.floor(Math.random() * this.recipes.length)];
+    }
   },
 };
 </script>
 
 <style>
+.recipe-of-the-day img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.recipe-of-the-day:hover {
+  cursor: pointer;
+  background-color: #f1f0f0;
+}
 </style>

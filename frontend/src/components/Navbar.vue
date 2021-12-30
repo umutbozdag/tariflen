@@ -35,18 +35,16 @@
       </div>
       <hr class="featurette-divider" />
       <div class="offcanvas-header text-center">
-        <h3 class><i class="bi bi-tag"></i> Kategoriler</h3>
+        <h3 class>
+          <i class="bi bi-tag"></i> Kategoriler
+        </h3>
       </div>
 
       <div class="offcanvas-body text-center" v-if="categories">
         <ul class="navbar-nav fw-bold link-dark text-decoration-none">
-          <li
-            v-for="category in categories"
-            :key="category.categoryId"
-            class="nav-item"
-          >
+          <li v-for="category in categories" :key="category.categoryId" class="nav-item">
             <router-link
-              class="nav-link kategori fw-bold link-dark text-decoration-none"
+              class="nav-link category fw-bold link-dark text-decoration-none"
               :to="{
                 name: 'CategoryDetail',
                 params: { categoryId: category.categoryId },
@@ -72,13 +70,13 @@
         <template #no-options>Tarif aramak için yazınız...</template>
         <template #option="option">
           <div class="d-center">
-            <!-- <img :src="option.imageURL" /> -->
+            <img :src="require(`../../../backend/src/uploads/${option.image.originalname}`)" />
             <span>{{ option.title }}</span>
           </div>
         </template>
         <template #selected-option="option">
           <div class="selected d-center">
-            <!-- <img :src="option.imageURL" /> -->
+            <img :src="require(`../../../backend/src/uploads/${option.image.originalname}`)" />
             <span>{{ option.title }}</span>
           </div>
         </template>
@@ -92,9 +90,7 @@
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#modalSignup"
-      >
-        Üye Ol
-      </button>
+      >Üye Ol</button>
       <button
         class="btn btn btn-outline-success fw-bold rounded-pill"
         type="button"
@@ -137,8 +133,7 @@
                 name: 'Profile',
                 params: { username: this.currentUser.username },
               }"
-              >Profilim</router-link
-            >
+            >Profilim</router-link>
             <div class="dropdown-divider"></div>
             <a @click="signOutUser" class="dropdown-item" href="#">Çıkış Yap</a>
           </div>
@@ -156,12 +151,7 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Eşsiz Tarifler Sizi Bekliyor</h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -244,12 +234,7 @@
         <div class="modal-content rounded-5 shadow">
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h2 class="fw-bold mb-0">Giriş Yap</h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
           <div class="modal-body p-5 pt-0">
@@ -311,14 +296,13 @@ export default {
   },
   watch: {
     selectedRecipe(recipe) {
-      this.$router.push({
-        name: "RecipeDetail",
-        params: { recipeId: recipe.recipeId },
-      });
-      this.$emit("recipe-selected", recipe);
-      // this.$nextTick(function () {
-      //   this.selectedRecipe = null
-      // })
+      if (recipe) {
+        this.$router.push({
+          name: "RecipeDetail",
+          params: { recipeId: recipe.recipeId },
+        });
+        this.$emit("recipe-selected", recipe);
+      }
     },
   },
   methods: {
@@ -377,7 +361,7 @@ export default {
 </script>
 
 <style>
-.kategori:hover,
+.category:hover,
 .navbar-toggler {
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 }
@@ -386,5 +370,40 @@ export default {
 }
 .v-select {
   width: 600px;
+}
+
+.v-select img {
+  height: auto;
+  max-width: 2.5rem;
+  margin-right: 1rem;
+}
+
+.d-center {
+  display: flex;
+  align-items: center;
+}
+
+.selected img {
+  width: 60px;
+  object-fit: cover;
+  max-height: 23px;
+  margin-right: 0.5rem;
+}
+
+.v-select .dropdown li {
+  width: 100%;
+  border-bottom: 1px solid red !important;
+}
+
+.v-select .dropdown li:last-child {
+  border-bottom: none;
+}
+
+.v-select .dropdown li a {
+  padding: 10px 20px;
+  font-size: 1.25em;
+  color: #3c3c3c;
+  background-color: red;
+  overflow-wrap: break-word;
 }
 </style>

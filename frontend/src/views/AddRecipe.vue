@@ -208,9 +208,6 @@ export default {
     async sendRecipe() {
       const formData = new FormData();
       formData.append("file", this.recipeImage);
-      for (var [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
 
       const recipeResponse = await this.$axios.post(
         `http://localhost:3000/recipe`,
@@ -224,6 +221,12 @@ export default {
           mealFor: this.mealFor,
           authorId: this.currentUser.userId,
           categoryId: this.selectedCategory.categoryId,
+          author: {
+            username: this.currentUser.username,
+            authorId: this.currentUser.userId,
+            name: this.currentUser.name,
+            lastName: this.currentUser.lastName
+          }
         }
       );
 

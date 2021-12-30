@@ -8,8 +8,14 @@ import axiosPlugin from './plugins/axios';
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import Notifications from '@kyvg/vue3-notification'
+import dayjs from 'dayjs';
 
 const app = createApp(App);
+
+require('dayjs/locale/tr')
+dayjs.locale('tr')
+const relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
 
 app.use(store)
 app.use(router)

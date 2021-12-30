@@ -27,15 +27,17 @@ const RecipeSchema = new mongoose.Schema({
     cookingTime: { type: String, required: true },
     mealFor: { type: Number, required: true },
     preparationTime: { type: String, required: true },
+    author: { type: Object, required: true }
 },
     { timestamps: true, toJSON: { virtuals: true } }
 );
 
-RecipeSchema.virtual('author', {
-    ref: 'User',
-    localField: 'authorId',
-    foreignField: 'userId'
-})
+// RecipeSchema.virtual('author', {
+//     ref: 'User',
+//     localField: 'authorId',
+//     foreignField: 'userId',
+//     justOne: true
+// })
 
 RecipeSchema.index({name: 'text', 'title': 'text'});
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="row justify-content-center" v-if="recipeDetail">
+  <div id="recipe-detail" class="row justify-content-center" v-if="recipeDetail">
     <!--  -->
-    <div class="col-md-2">
+    <div class="col-md-2 image">
       <img
         v-if="recipeDetail.image"
         :src="require(`../../../backend/src/uploads/${recipeDetail.image.originalname}`)"
@@ -24,6 +24,10 @@
       >
         <i class="bi bi-bookmark-heart"></i> Favorilerimden Çıkar
       </button>
+
+      <button class="btn btn-outline-secondary fw-bold mt-3" @click="downloadAsPdf">
+        <i class="bi bi-download"></i> PDF
+      </button>
     </div>
     <!-- Tarif -->
     <div class="col-md-5">
@@ -31,40 +35,27 @@
       <p class="text-muted text-start">{{ recipeDetail.description }}</p>
       <div class="d-flex">
         <h3 class="profileDetail mt-1 ps-2">
-          {{ recipeDetail.mealFor }} Kişilik
           <i class="bi bi-people-fill"></i>
+          {{ recipeDetail.mealFor }} Kişilik
         </h3>
         <h3 class="profileDetail mt-1 ms-5 ps-2">
-          {{ recipeDetail.cookingTime }}
           <i class="bi bi-alarm"></i>
+          {{ recipeDetail.cookingTime }}
         </h3>
+      </div>
+      <div class="d-flex mt-2">
+        <span class="fs-5">{{ getRecipeDate(recipeDetail.createdAt) }}</span>
       </div>
     </div>
     <!-- profil -->
-    <div
-      class="col-md-2 align-self-center"
-      v-if="
-        recipeDetail.author[0].username === currentUser && currentUser.username
-      "
-    >
+    <div class="col-md-2 align-self-center">
       <div class="picture d-flex">
-        <img
-          src="https://github.com/mdo.png"
-          alt="mdo"
-          width="100"
-          height="100"
-          class="rounded-circle shadow"
-        />
+        <user-avatar :username="recipeDetail.author.username" />
         <div class="ps-2 align-self-center">
-          <h2 class="fw">{{ recipeDetail.author[0].username }}</h2>
-          <a class="btn btn-outline-dark rounded-pill" href="#" role="button">
-            <i class="bi bi-person-plus"></i>
-            Takip Et
-          </a>
+          <h2 class="fw">{{ recipeDetail.author.username }}</h2>
         </div>
       </div>
     </div>
-
     <hr class="featurette-divider mt-3" />
 
     <div class="col-md-8 text-start">
@@ -73,7 +64,11 @@
         Malzemeler
       </h1>
       <ul class="list-group list-group-flush fs-5 malzemeler">
-        <li v-for="(ingredient, i) in recipeDetail.ingredients" :key="i" class="list-group-item d-flex ms-4">
+        <li
+          v-for="(ingredient, i) in recipeDetail.ingredients"
+          :key="i"
+          class="list-group-item d-flex ms-4"
+        >
           <div class="col-7">
             <i class="bi bi-chevron-right"></i>
             {{ ingredient.title }}
@@ -99,27 +94,76 @@
         Nasıl Yapılır ?
       </h1>
       <ol class="list-group list-group-flush fs-4 mt-3">
-        <li v-for="instruction in recipeDetail.instructions" :key="instruction.index" class="list-group-item ms-4">
+        <li
+          v-for="instruction in recipeDetail.instructions"
+          :key="instruction.index"
+          class="list-group-item ms-4"
+        >
           <div class="d-flex">
-            <h2 class="orderedList text-center me-3">{{instruction.index + 1}}</h2>
-            <p>{{instruction.text}}</p>
+            <h2 class="orderedList text-center me-3">{{ instruction.index + 1 }}</h2>
+            <p>{{ instruction.text }}</p>
           </div>
         </li>
       </ol>
+    </div>
+
+    <hr class="featurette-divider mt-3" />
+
+    <div class="d-flex justify-content-center">
+      <div id="disqus_thread"></div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import UserAvatar from "../components/UserAvatar.vue";
+import html2pdf from 'html2pdf.js'
+import dayjs from "dayjs";
 
 export default {
   name: "RecipeDetail",
+  data() {
+    return {
+      comment: ""
+    };
+  },
   async mounted() {
     await this.setRecipeDetail(this.$route.params.recipeId);
+    this.initializeDisqus();
   },
   methods: {
     ...mapActions(["setRecipeDetail", "setUser"]),
+    getRecipeDate(createdAt) {
+      return dayjs().to(dayjs(createdAt));
+    },
+    downloadAsPdf() {
+      const recipeDetail = document.getElementById('recipe-detail');
+
+      html2pdf(recipeDetail, {
+        margin: 2,
+        filename: `${this.recipeDetail.title}_${this.recipeDetail.author.username}`,
+        html2canvas: {},
+        jsPDF: { format: 'a2', orientation: 'p', putOnlyUsedFonts: true, floatPrecision: 'smart' }
+      })
+    },
+    initializeDisqus() {
+      /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+      var disqus_config = function () {
+      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function () {
+        var d = document, s = d.createElement("script");
+        s.src = "https://tariflen.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    },
     addToFavorites() {
       this.$axios
         .put(`/user/${this.currentUser.email}`, {
@@ -130,13 +174,9 @@ export default {
         });
     },
     removeFromFavorites() {
-      let favoriteIndex = this.currentUser.favorites.findIndex(
-        (favorite) => favorite.recipeId === this.recipeDetail.recipeId
-      );
-
+      let favoriteIndex = this.currentUser.favorites.findIndex((favorite) => favorite.recipeId === this.recipeDetail.recipeId);
       if (favoriteIndex > -1) {
         this.currentUser.favorites.splice(favoriteIndex, 1);
-
         this.$axios
           .put(`/user/${this.currentUser.email}`, {
             favorites: [...this.currentUser.favorites],
@@ -150,16 +190,14 @@ export default {
   computed: {
     ...mapState(["recipeDetail", "currentUser"]),
     showAddToFavorites() {
-      let favoriteIndex = this.currentUser.favorites.findIndex(
-        (favorite) => favorite.recipeId === this.recipeDetail.recipeId
-      );
-
+      let favoriteIndex = this.currentUser.favorites.findIndex((favorite) => favorite.recipeId === this.recipeDetail.recipeId);
       if (favoriteIndex > -1) {
         return false;
       }
       return true;
     },
   },
+  components: { UserAvatar }
 };
 </script>
 
@@ -172,5 +210,9 @@ export default {
   min-width: 1.3em;
   height: 1.3em;
   border-radius: 50%;
+}
+
+#disqus_thread {
+  width: 800px;
 }
 </style>

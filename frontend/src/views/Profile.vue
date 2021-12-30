@@ -2,28 +2,18 @@
   <div v-if="userDetail && currentUser">
     <div class="container mt-5">
       <div class="picture d-inline-flex justify-content-center">
-        <div
-          class="rounded-circle shadow d-flex"
-          id="profilePhoto"
-          style="width: 150px; height: 150px"
-          v-bind:style="styleObject"
-        >
-          <h1 class="m-auto display-1 fw-bold text-dark">
-            {{ userDetail.name.charAt(0).toUpperCase() }}
-          </h1>
-        </div>
+        <user-avatar width="150px" height="150px" :username="userDetail.username" is-big-text />
+
         <div class="ps-5">
-          <h1 class="display-1">
-            {{ userDetail.name }} {{ userDetail.lastName }}
-          </h1>
+          <h1 class="display-1">{{ userDetail.name }} {{ userDetail.lastName }}</h1>
           <div class="d-flex mx-auto">
             <p class="profileDetail display-6 mt-3 ps-2">
-              {{ userDetail.recipes.length }} Tarif
               <i class="bi bi-egg"></i>
+              {{ userDetail.recipes.length }} Tarif
             </p>
             <p class="profileDetail display-6 mt-3 ps-2 ms-3">
-              {{ userDetail.followers.length }} Takipçi
               <i class="bi bi-people"></i>
+              {{ userDetail.followers.length }} Takipçi
             </p>
           </div>
         </div>
@@ -34,14 +24,22 @@
         >
           <div class="d-flex mx-auto">
             <template v-if="this.userDetail.followers.length">
-              <button class="btn btn-lg text-dark rounded-pill btn-outline-warning" v-if="showFollowButton" @click="followUser">
+              <button
+                class="btn btn-lg text-dark rounded-pill btn-outline-warning"
+                v-if="showFollowButton"
+                @click="followUser"
+              >
                 <h3 class="m-auto p-2">
                   <i class="bi bi-person-plus"></i>
                   Takip Et
                 </h3>
               </button>
 
-              <button v-else @click="unfollowUser" class="btn btn-lg text-dark rounded-pill btn-outline-warning">
+              <button
+                v-else
+                @click="unfollowUser"
+                class="btn btn-lg text-dark rounded-pill btn-outline-warning"
+              >
                 <h3 class="m-auto p-2">
                   <i class="bi bi-person-dash"></i>
                   Takipten Çık
@@ -85,9 +83,7 @@
                 role="tab"
                 aria-controls="nav-tariflerim"
                 aria-selected="true"
-              >
-                Tariflerim
-              </button>
+              >Tariflerim</button>
               <button
                 class="nav-link"
                 id="nav-favTariflerim-tab"
@@ -102,8 +98,7 @@
                   v-if="
                     currentUser && currentUser.username === userDetail.username
                   "
-                  >Favori Tariflerim</span
-                >
+                >Favori Tariflerim</span>
                 <span v-else>Favori Tarifleri</span>
               </button>
               <button
@@ -115,9 +110,7 @@
                 role="tab"
                 aria-controls="nav-followers"
                 aria-selected="false"
-              >
-                Takipçiler
-              </button>
+              >Takipçiler</button>
 
               <button
                 class="nav-link"
@@ -128,9 +121,7 @@
                 role="tab"
                 aria-controls="nav-iFollow"
                 aria-selected="false"
-              >
-                Takip Edilen
-              </button>
+              >Takip Edilen</button>
             </div>
           </nav>
 
@@ -182,12 +173,9 @@
               role="tabpanel"
               aria-labelledby="nav-followers-tab"
             >
-              <div
-                class="container justify-content-center"
-                v-if="userDetail.followers.length"
-              >
+              <div class="container justify-content-center" v-if="userDetail.followers.length">
                 <div class="row row-cols-1 row-cols-md-4 g-3">
-                  <follower-card
+                  <user-card
                     v-for="follower in userDetail.followers"
                     :key="follower.userId"
                     :username="follower.username"
@@ -199,9 +187,7 @@
                 role="tabpanel"
                 aria-labelledby="nav-followers-tab"
                 v-else
-              >
-                Hiç takipçi bulunamadı
-              </div>
+              >Hiç takipçi bulunamadı</div>
             </div>
 
             <div
@@ -210,12 +196,9 @@
               role="tabpanel"
               aria-labelledby="nav-iFollow-tab"
             >
-              <div
-                class="container justify-content-center"
-                v-if="userDetail.follows.length"
-              >
+              <div class="container justify-content-center" v-if="userDetail.follows.length">
                 <div class="row row-cols-1 row-cols-md-4 g-3">
-                  <follower-card
+                  <user-card
                     v-for="follower in currentUser.follows"
                     :key="follower.userId"
                     :username="follower.username"
@@ -227,9 +210,7 @@
                 role="tabpanel"
                 aria-labelledby="nav-iFollow-tab"
                 v-else
-              >
-                Hiç takipçi bulunamadı
-              </div>
+              >Hiç takipçi bulunamadı</div>
             </div>
           </div>
         </div>
@@ -241,20 +222,15 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import RecipeCard from "../components/RecipeCard.vue";
-import FollowerCard from "../components/FollowerCard.vue";
+import UserAvatar from "../components/UserAvatar.vue";
+import UserCard from "../components/UserCard.vue";
 
 export default {
   name: "Profile",
   components: {
     RecipeCard,
-    FollowerCard,
-  },
-  data() {
-    return {
-      styleObject: {
-        background: this.random_rgba(),
-      },
-    };
+    UserCard,
+    UserAvatar
   },
   methods: {
     ...mapActions(["setUserDetail"]),
@@ -268,25 +244,6 @@ export default {
 
       this.currentUser.follows.splice(followsIdx, 1);
       this.userDetail.followers.splice(followersIdx, 1);
-
-      console.log(followsIdx, followersIdx);
-
-      // followers.push({
-      //   username: this.currentUser.username,
-      //   name: this.currentUser.name,
-      //   lastName: this.currentUser.lastName,
-      //   userId: this.currentUser.userId,
-      //   email: this.currentUser.email,
-      //   _id: this.currentUser._id
-      // });
-      // follows.push({
-      //   username: this.userDetail.username,
-      //   name: this.userDetail.name,
-      //   lastName: this.userDetail.lastName,
-      //   userId: this.userDetail.userId,
-      //   email: this.userDetail.email,
-      //   _id: this.userDetail._id
-      // })
 
       const userDetailResp = await this.$axios.put(
         `http://localhost:3000/user/${this.userDetail.email}`,
@@ -344,23 +301,7 @@ export default {
       );
 
       this.currentUser.follows = currentUserResp.data.follows;
-    },
-    random_rgba() {
-      var o = Math.round,
-        r = Math.random,
-        s = 255;
-      return (
-        "rgba(" +
-        o(r() * s) +
-        "," +
-        o(r() * s) +
-        "," +
-        o(r() * s) +
-        "," +
-        ".4" +
-        ")"
-      );
-    },
+    }
   },
   computed: {
     ...mapState(["userDetail", "currentUser"]),
@@ -384,3 +325,7 @@ export default {
   border-left: 10px solid #00c2ff;
 }
 </style>
+
+.profileDetail {
+  border-left: 10px solid #00c2ff;
+}
