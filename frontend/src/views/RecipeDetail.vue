@@ -12,14 +12,14 @@
       />
       <button
         v-if="currentUser && showAddToFavorites"
-        class="btn btn-light btn-outline-danger fw-bold rounded-pill mt-3"
+        class="btn btn-light btn-outline-primary fw-bold rounded-pill mt-3"
         @click="addToFavorites"
       >
         <i class="bi bi-bookmark-heart"></i> Favorilerime Ekle
       </button>
       <button
         v-if="currentUser && !showAddToFavorites"
-        class="btn btn-danger fw-bold rounded-pill mt-3"
+        class="btn btn-primary fw-bold rounded-pill mt-3"
         @click="removeFromFavorites"
       >
         <i class="bi bi-bookmark-heart"></i> Favorilerimden Çıkar
@@ -27,6 +27,14 @@
 
       <button class="btn btn-outline-secondary fw-bold mt-3" @click="downloadAsPdf">
         <i class="bi bi-download"></i> PDF
+      </button>
+
+      <button
+        class="btn btn-danger fw-bold mt-3 ms-3"
+        v-if="currentUser && currentUser.username === recipeDetail.author.username"
+        @click="deleteRecipe"
+      >
+        <i class="bi bi-delete"></i> Tarifi sil
       </button>
     </div>
     <!-- Tarif -->
@@ -120,6 +128,7 @@ import { mapActions, mapState } from "vuex";
 import UserAvatar from "../components/UserAvatar.vue";
 import html2pdf from 'html2pdf.js'
 import dayjs from "dayjs";
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
   name: "RecipeDetail",
@@ -134,6 +143,15 @@ export default {
   },
   methods: {
     ...mapActions(["setRecipeDetail", "setUser"]),
+    async deleteRecipe() {
+      await this.$axios.delete(`http://localhost:3000/recipe/${this.recipeDetail.recipeId}`)
+      notify({
+        type: "success",
+        title: "BAŞARILI",
+        text: "Tarifi başarıyla sildiniz",
+      });
+      this.$router.push({ name: 'Home' })
+    },
     getRecipeDate(createdAt) {
       return dayjs().to(dayjs(createdAt));
     },
