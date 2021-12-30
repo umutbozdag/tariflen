@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-start mb-4 display-5">Kategoriler</div>
+  <div class="container text-start mb-4 display-5">İlginizi Çekebilecek Kategoriler</div>
   <div class="container d-flex justify-content-between">
     
     <category-card v-for="category in categories" :key="category.categoryId" :category="category" />

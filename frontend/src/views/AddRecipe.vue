@@ -280,7 +280,6 @@ html {
 }
 .sendRecipeBtn {
   animation: wiggle 2.5s ease-out infinite;
-  animation-delay: 5s;
   box-shadow: 2px 1px 3px rgba(0, 255, 64, 0.5);
 }
 .sendRecipeBtn:hover {

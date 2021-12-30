@@ -67,47 +67,42 @@
 
     <hr class="featurette-divider mt-3" />
 
-    <div class="row row-cols-1 col-md-8 text-start">
+    <div class="col-md-8 text-start">
       <h1>
         <i class="bi bi-bag-check"></i>
         Malzemeler
       </h1>
-      <ul class="list-group list-group-flush text-nowrap fs-5 malzemeler">
+      <ul class="list-group list-group-flush fs-5 malzemeler">
         <li v-for="(ingredient, i) in recipeDetail.ingredients" :key="i" class="list-group-item d-flex ms-4">
-          <i class="bi bi-chevron-right"></i>
-          {{ ingredient.title }}
-          <button
-            class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-primary text-decoration-none"
-            v-if="ingredient.ingredient"
-          >
-            <i class="bi bi-cart-plus"></i>
-            <a :href="ingredient.ingredient.link" target="_blank">Mağazada Göster</a>
-          </button>
+          <div class="col-7">
+            <i class="bi bi-chevron-right"></i>
+            {{ ingredient.title }}
+          </div>
+          <div class="col-10">
+            <button
+              class="btn btn-sm ms-5 fw-bold rounded-pill btn-outline-primary text-decoration-none"
+              v-if="ingredient.ingredient"
+            >
+              <i class="bi bi-cart-plus"></i>
+              <a :href="ingredient.ingredient.link" target="_blank">Mağazada Göster</a>
+            </button>
+          </div>
         </li>
       </ul>
     </div>
 
     <hr class="featurette-divider mt-3" />
 
-    <div class="row row-cols-1 col-md-8 text-start">
+    <div class="col-md-8 text-start">
       <h1>
         <i class="bi bi-patch-question"></i>
         Nasıl Yapılır ?
       </h1>
-      <ol class="list-group list-group-flush text-nowrap fs-4">
+      <ol class="list-group list-group-flush fs-4 mt-3">
         <li v-for="instruction in recipeDetail.instructions" :key="instruction.index" class="list-group-item ms-4">
           <div class="d-flex">
             <h2 class="orderedList text-center me-3">{{instruction.index + 1}}</h2>
-            {{instruction.text}}
-          </div>
-          <div class="d-flex">
-            <img
-              src="../assets/zeytin.png"
-              class="mx-auto shadow-sm"
-              alt
-              width="500em"
-              style="border-radius: 25px"
-            />
+            <p>{{instruction.text}}</p>
           </div>
         </li>
       </ol>
