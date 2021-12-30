@@ -34,14 +34,31 @@
         >
           <div class="d-flex mx-auto">
             <template v-if="this.userDetail.followers.length">
-              <button v-if="showFollowButton" @click="followUser">
-                Takip et
+              <button class="btn btn-lg text-dark rounded-pill btn-outline-warning" v-if="showFollowButton" @click="followUser">
+                <h3 class="m-auto p-2">
+                  <i class="bi bi-person-plus"></i>
+                  Takip Et
+                </h3>
               </button>
-              <button v-else @click="unfollowUser">Takipten çık</button>
+
+              <button v-else @click="unfollowUser" class="btn btn-lg text-dark rounded-pill btn-outline-warning">
+                <h3 class="m-auto p-2">
+                  <i class="bi bi-person-dash"></i>
+                  Takipten Çık
+                </h3>
+              </button>
             </template>
 
             <template v-else>
-              <button @click="followUser">Takip et</button>
+              <button
+                @click="followUser"
+                class="btn btn-lg text-dark rounded-pill btn-outline-warning"
+              >
+                <h3 class="m-auto p-2">
+                  <i class="bi bi-person-plus"></i>
+                  Takip Et
+                </h3>
+              </button>
             </template>
           </div>
         </div>
@@ -102,7 +119,7 @@
                 Takipçiler
               </button>
 
-               <button
+              <button
                 class="nav-link"
                 id="nav-iFollow-tab"
                 data-bs-toggle="tab"
@@ -186,8 +203,8 @@
                 Hiç takipçi bulunamadı
               </div>
             </div>
-      
-             <div
+
+            <div
               class="tab-pane fade"
               id="nav-iFollow"
               role="tabpanel"
@@ -213,7 +230,7 @@
               >
                 Hiç takipçi bulunamadı
               </div>
-            </div>      
+            </div>
           </div>
         </div>
       </div>
@@ -236,7 +253,6 @@ export default {
     return {
       styleObject: {
         background: this.random_rgba(),
-
       },
     };
   },
@@ -330,8 +346,20 @@ export default {
       this.currentUser.follows = currentUserResp.data.follows;
     },
     random_rgba() {
-      var o = Math.round, r = Math.random, s = 255;
-      return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + '.4' + ')';
+      var o = Math.round,
+        r = Math.random,
+        s = 255;
+      return (
+        "rgba(" +
+        o(r() * s) +
+        "," +
+        o(r() * s) +
+        "," +
+        o(r() * s) +
+        "," +
+        ".4" +
+        ")"
+      );
     },
   },
   computed: {
