@@ -264,8 +264,8 @@ export default {
       this.currentUser.follows = currentUserResp.data.follows;
     },
     async followUser() {
-      const followers = [];
-      const follows = [];
+      const followers = [...this.userDetail.followers];
+      const follows = [...this.currentUser.follows];
 
       followers.push({
         username: this.currentUser.username,
@@ -306,11 +306,9 @@ export default {
   computed: {
     ...mapState(["userDetail", "currentUser"]),
     showFollowButton() {
-      return (
-        this.currentUser.follows.find(
-          (u) => u.username === this.userDetail.username
-        )?.length === 0
-      );
+      let show = this.userDetail.followers.every(u => u.username !== this.currentUser.username)
+
+      return show;
     },
   },
 
