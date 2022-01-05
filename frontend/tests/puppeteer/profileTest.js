@@ -19,14 +19,11 @@ const puppeteer = require("puppeteer");
 
     await page.waitForSelector("#nav-followers-tab");
     await page.click("#nav-followers-tab");
-    await page.waitForSelector(
-      ".col:nth-child(2) > .card > .card-body > .container > .link-dark"
-    );
-    await page.click(
-      ".col:nth-child(2) > .card > .card-body > .container > .link-dark"
-    );
-
-    await browser.close();
+  
+    await page.evaluate(() => {
+        document.querySelector('#nav-followers > .container > .row > .col:nth-child(1) > .card > .card-body > .container > a').click();
+        });
+    
   } catch (e) {
     await browser.close();
     throw e;

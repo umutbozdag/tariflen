@@ -19,6 +19,13 @@ const puppeteer = require("puppeteer");
 
     await page.waitForSelector(".bi-layout-text-sidebar-reverse");
     await page.click(".bi-layout-text-sidebar-reverse");
+    await page.evaluate(() => {
+      document.querySelector('.navbar-nav .nav-item > a').click();
+      });
+
+      
+    await page.waitForSelector(".offcanvas-backdrop");
+    await page.click(".offcanvas-backdrop");
 
   } catch (e) {
     await browser.close();
