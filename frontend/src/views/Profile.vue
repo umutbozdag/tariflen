@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userDetail && currentUser">
+  <div v-if="userDetail">
     <div class="container mt-5">
       <div class="picture d-inline-flex justify-content-center">
         <user-avatar width="150px" height="150px" :username="userDetail.username" is-big-text />
@@ -20,7 +20,7 @@
 
         <div
           class="d-flex align-items-center ms-5"
-          v-if="currentUser.username !== userDetail.username"
+          v-if="currentUser && currentUser.username !== userDetail.username"
         >
           <div class="d-flex mx-auto">
             <template v-if="this.userDetail.followers.length">
@@ -199,7 +199,7 @@
               <div class="container justify-content-center" v-if="userDetail.follows.length">
                 <div class="row row-cols-1 row-cols-md-4 g-3">
                   <user-card
-                    v-for="follower in currentUser.follows"
+                    v-for="follower in userDetail.follows"
                     :key="follower.userId"
                     :username="follower.username"
                   />
