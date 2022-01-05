@@ -12,18 +12,18 @@
         height="200"
       />
       <div class="card-img-overlay"></div>
-      <div class="card-body">
-        <h1 class="card-text fs-2 fw-bold">{{ recipe.title }}</h1>
+      <div class="card-body my-auto d-flex flex-column">
         <small class="text-muted">
           <i class="bi bi-people-fill"></i>
           {{ recipe.mealFor }} Kişilik
           <i class="bi bi-alarm ms-2"></i>
-          {{ recipe.cookingTime }}
+          {{calcPrepTime()}} Dakika
         </small>
-        <div class="container position-relative d-flex mt-3" style="z-index: 2">
+        <h1 class="card-text fs-2 fw-bold m-auto">{{ recipe.title }}</h1>
+        <div class="container d-flex mt-auto" style="z-index: 2">
           <user-avatar :username="recipe.author.username" />
-          <div class="d-flex flex-column ms-2">
-            <router-link :to="{name: 'Profile', params: {username: recipe.author.username}}" class="fs-4">{{ recipe.author.username }}</router-link>
+          <div class="d-flex flex-column ms-2 my-auto">
+            <router-link :to="{name: 'Profile', params: {username: recipe.author.username}}" class="fs-4 text-decoration-none  text-dark">{{ recipe.author.username }}</router-link>
             <span>{{getRecipeDate(recipe.createdAt)}}</span>
           </div>
         </div>
@@ -56,12 +56,18 @@ export default {
   methods: {
     getRecipeDate(createdAt) {
       return dayjs().to(dayjs(createdAt));
+    },
+    calcPrepTime(){
+      return parseInt(this.recipe.cookingTime) + parseInt(this.recipe.preparationTime)
     }
   }
 };
 </script>
 
 <style scoped>
+.card{
+  height: 25em;
+}
 .card-img-overlay {
   opacity: 0.8;
   visibility: hidden;

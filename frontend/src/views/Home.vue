@@ -2,7 +2,7 @@
   <div class="container text-start mb-4 display-5">İlginizi Çekebilecek Kategoriler</div>
   <div v-if="categories && categories.length" class="container d-flex justify-content-between">
     <category-card
-      v-for="category in categories.slice(0, 5)"
+      v-for="category in categories.slice(3, 8)"
       :key="category.categoryId"
       :category="category"
     />
@@ -16,14 +16,15 @@
         Günün Menüsü:
         <span class="fs-3">{{ recipeOfTheDay.title }}</span>
       </h2>
-      <div class="featurette-heading text-muted fs-4">{{ recipeOfTheDay.description }}</div>
+      <div class="featurette-heading text-muted fs-5 text-start">{{ recipeOfTheDay.description }}</div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 my-auto">
       <img
         :src="
           require(`../../../backend/src/uploads/${recipeOfTheDay.image.originalname}`)
         "
         alt
+        class="shadow-md"
       />
     </div>
   </div>
@@ -80,8 +81,8 @@ export default {
 
 <style>
 .recipe-of-the-day img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 12px;
 }

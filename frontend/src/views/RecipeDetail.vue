@@ -6,49 +6,45 @@
         v-if="recipeDetail.image"
         :src="require(`../../../backend/src/uploads/${recipeDetail.image.originalname}`)"
         alt="mdo"
-        width="200"
-        height="200"
-        class="rounded-circle shadow"
+        width="250"
+        height="250"
+        class="recipeImg shadow border border-2"
       />
       <button
         v-if="currentUser && showAddToFavorites"
-        class="btn btn-light btn-outline-primary fw-bold rounded-pill mt-3"
+        class="btn btn-light btn-outline-danger fw-bold rounded-pill mt-3"
         @click="addToFavorites"
       >
         <i class="bi bi-bookmark-heart"></i> Favorilerime Ekle
       </button>
       <button
         v-if="currentUser && !showAddToFavorites"
-        class="btn btn-primary fw-bold rounded-pill mt-3"
+        class="btn btn-danger fw-bold rounded-pill mt-3"
         @click="removeFromFavorites"
       >
         <i class="bi bi-bookmark-heart"></i> Favorilerimden Çıkar
       </button>
 
-      <button class="btn btn-outline-secondary fw-bold mt-3" @click="downloadAsPdf">
+      <button class="btn btn-outline-secondary rounded-pill fw-bold mt-3" @click="downloadAsPdf">
         <i class="bi bi-download"></i> PDF
-      </button>
-
-      <button
-        class="btn btn-danger fw-bold mt-3 ms-3"
-        v-if="currentUser && currentUser.username === recipeDetail.author.username"
-        @click="deleteRecipe"
-      >
-        <i class="bi bi-delete"></i> Tarifi sil
       </button>
     </div>
     <!-- Tarif -->
-    <div class="col-md-5">
+    <div class="col-md-6">
       <h1 class="text-start fw-bold">{{ recipeDetail.title }}</h1>
       <p class="text-muted text-start">{{ recipeDetail.description }}</p>
-      <div class="d-flex">
-        <h3 class="profileDetail mt-1 ps-2">
+      <div class="d-flex mt-1">
+        <h3 class="profileDetail ps-2">
           <i class="bi bi-people-fill"></i>
           {{ recipeDetail.mealFor }} Kişilik
         </h3>
-        <h3 class="profileDetail mt-1 ms-5 ps-2">
-          <i class="bi bi-alarm"></i>
-          {{ recipeDetail.cookingTime }}
+        <h3 class="profileDetail ms-5 ps-2">
+          <i class="bi bi-hourglass"></i>
+          {{ recipeDetail.preparationTime }} Hazırlama
+        </h3>
+         <h3 class="profileDetail  ms-5 ps-2">
+          <i class="bi bi-stopwatch"></i>
+          {{ recipeDetail.cookingTime }} Pişirme
         </h3>
       </div>
       <div class="d-flex mt-2">
@@ -59,10 +55,15 @@
     <div class="col-md-2 align-self-center">
       <div class="picture d-flex">
         <user-avatar :username="recipeDetail.author.username" />
-        <div class="ps-2 align-self-center">
-          <h2 class="fw">{{ recipeDetail.author.username }}</h2>
-        </div>
+        <router-link :to="{name: 'Profile', params: {username: recipeDetail.author.username}}" class="fs-2 fw-bold ps-2 text-decoration-none text-dark">{{ recipeDetail.author.username }}</router-link>
       </div>
+      <button
+        class="btn btn-warning fw-bold mt-3 rounded-pill"
+        v-if="currentUser && currentUser.username === recipeDetail.author.username"
+        @click="deleteRecipe"
+      >
+        <i class="bi bi-trash"></i> Tarifi Sil
+      </button>
     </div>
     <hr class="featurette-divider mt-3" />
 
@@ -77,7 +78,7 @@
           :key="i"
           class="list-group-item d-flex ms-4"
         >
-          <div class="col-7">
+          <div class="col-10">
             <i class="bi bi-chevron-right"></i>
             {{ ingredient.title }}
           </div>
@@ -220,8 +221,11 @@ export default {
 </script>
 
 <style>
+.recipeImg{
+  border-radius: 12px;
+}
 .malzemeler {
-  width: 30%;
+  width: 33%;
 }
 .orderedList {
   border: 1px solid #2c3e50;

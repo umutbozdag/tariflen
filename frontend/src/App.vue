@@ -45,7 +45,6 @@ export default {
 
 <style lang="scss">
 #app {
-  overflow-x: hidden;
   font-family: "Dosis", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
